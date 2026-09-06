@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chat Gruppo - Sistema Solare</title>
-  <!-- Icone FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
@@ -17,11 +16,11 @@
     html, body {
       width: 100%;
       height: 100%;
-      /* Sfondo a quadretti in stile taccuino/spaziale basato sull'immagine di riferimento */
-      background-color: #fdfbf7;
+      /* Sfondo a quadretti in stile taccuino di scuola ma con colori invertiti: sfondo nero e righe bianche */
+      background-color: #000000;
       background-image: 
-        linear-gradient(to right, rgba(200, 200, 200, 0.25) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(200, 200, 200, 0.25) 1px, transparent 1px);
+        linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
       background-size: 20px 20px;
       overflow-x: hidden;
     }
@@ -33,11 +32,11 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      background-color: rgba(253, 251, 247, 0.95);
+      background-color: rgba(0, 0, 0, 0.85);
       position: relative;
-      border-left: 2px solid #111;
-      border-right: 2px solid #111;
-      box-shadow: 4px 0px 15px rgba(0,0,0,0.1);
+      border-left: 2px solid #ffffff;
+      border-right: 2px solid #ffffff;
+      box-shadow: 4px 0px 15px rgba(255,255,255,0.1);
     }
 
     /* Intestazione Chat (Stile Nero/Bianco) */
@@ -51,7 +50,7 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      border-bottom: 2px solid #111;
+      border-bottom: 2px solid #ffffff;
     }
 
     .user-info {
@@ -70,7 +69,7 @@
       align-items: center;
       justify-content: center;
       font-weight: bold;
-      border: 2px solid #111;
+      border: 2px solid #ffffff;
       overflow: hidden;
       flex-shrink: 0;
     }
@@ -116,7 +115,7 @@
       height: 32px;
       border-radius: 50%;
       background: #ffffff;
-      border: 2px solid #111;
+      border: 2px solid #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -138,7 +137,7 @@
     .sender-name {
       font-size: 11px;
       font-weight: bold;
-      color: #444;
+      color: #cccccc;
       margin-bottom: 3px;
       padding-left: 4px;
     }
@@ -155,30 +154,30 @@
       font-size: 15px;
       line-height: 1.4;
       position: relative;
-      border: 2px solid #111111;
+      border: 2px solid #ffffff;
     }
 
     .received .message-bubble {
-      background-color: #ffffff;
-      color: #111;
+      background-color: #111111;
+      color: #ffffff;
       border-bottom-left-radius: 2px;
-      box-shadow: 2px 2px 0px #111;
+      box-shadow: 2px 2px 0px #ffffff;
     }
 
     .sent .message-bubble {
-      background-color: #111111;
-      color: #ffffff;
+      background-color: #ffffff;
+      color: #000000;
       border-bottom-right-radius: 2px;
-      box-shadow: 2px 2px 0px #444;
+      box-shadow: 2px 2px 0px #888888;
     }
 
     .timestamp {
       font-size: 10px;
-      color: #777;
+      color: #aaaaaa;
       margin-top: 4px;
       text-align: right;
     }
-    .sent .timestamp { color: #aaa; }
+    .sent .timestamp { color: #555555; }
 
     /* Banner Finale e Pulsanti Social */
     .final-banner {
@@ -200,32 +199,33 @@
       width: 45px;
       height: 45px;
       border-radius: 50%;
-      background: white;
-      border: 2px solid #111;
+      background: #111;
+      border: 2px solid #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #111;
+      color: #ffffff;
       text-decoration: none;
       font-size: 18px;
-      box-shadow: 2px 2px 0px #111;
+      box-shadow: 2px 2px 0px #ffffff;
     }
 
     .card-banner {
-      background: white;
-      border: 2px solid #111;
+      background: #111111;
+      color: #ffffff;
+      border: 2px solid #ffffff;
       border-radius: 12px;
       padding: 15px;
       width: 90%;
       text-align: center;
-      box-shadow: 3px 3px 0px #111;
+      box-shadow: 3px 3px 0px #ffffff;
     }
 
     .card-banner a {
       display: block;
       margin-top: 10px;
       font-weight: bold;
-      color: #111;
+      color: #ffffff;
       text-decoration: none;
     }
   </style>
@@ -233,7 +233,6 @@
 <body>
 
   <div class="chat-container">
-    <!-- Intestazione Chat di Gruppo -->
     <div class="chat-header">
       <div class="user-info">
         <i class="fa-solid fa-chevron-left"></i>
@@ -249,10 +248,8 @@
       </div>
     </div>
 
-    <!-- Contenitore Messaggi -->
     <div class="chat-messages" id="chatBox"></div>
 
-    <!-- Banner Finale -->
     <div class="final-banner" id="finalBanner">
       <div class="social-icons">
         <a href="#" class="social-btn"><i class="fa-brands fa-x-twitter"></i></a>
@@ -328,14 +325,13 @@
       if (msg.type === 'system') {
         msgDiv.style.textAlign = 'center';
         msgDiv.style.fontSize = '12px';
-        msgDiv.style.color = '#777';
+        msgDiv.style.color = '#aaaaaa';
         msgDiv.style.margin = '8px 0';
         msgDiv.style.width = '100%';
         msgDiv.innerHTML = `<i>${msg.text}</i>`;
       } else {
         msgDiv.classList.add('message-row', msg.sender);
         
-        // Assegna il nome del file .png come richiesto
         let pngName = profileImages[msg.name] || 'pianeta.png';
 
         msgDiv.innerHTML = `
@@ -369,4 +365,3 @@
   </script>
 </body>
 </html>
-
