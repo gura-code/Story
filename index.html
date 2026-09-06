@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Solar Chat</title>
-  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
@@ -235,7 +234,6 @@
 <body>
 
   <div class="chat-container">
-    <!-- Chat Header -->
     <div class="chat-header">
       <div class="user-info">
         <i class="fa-solid fa-chevron-left"></i>
@@ -255,7 +253,6 @@
       </div>
     </div>
 
-    <!-- Messages Container -->
     <div class="chat-messages" id="chatBox"></div>
   </div>
 
@@ -279,15 +276,15 @@
       { type: 'text', sender: 'received', name: 'Venus', text: 'Stop crying, Mercury. Look at how gorgeous I look in Earth\'s skies tonight. Bright, elegant, flawless.' },
       { type: 'text', sender: 'sent', name: 'Earth', text: 'Venus, your atmosphere is made of sulfuric acid and the pressure would crush a submarine. Stop acting like a diva.' },
       { type: 'text', sender: 'received', name: 'Mars', text: 'Speaking of parasites... Earth, I got another wheeled robot. They keep digging holes in my desert looking for water. But there is no water! It\'s just dust! I\'ve been saying this for three billion years!' },
-      { type: 'image', sender: 'received', name: 'Mars', text: '<i>Curiosity rover chilling in the Martian dust</i>', img: './rover-marte.png' },
+      { type: 'image', sender: 'received', name: 'Mars', text: '<i>Curiosity rover chilling in the Martian dust</i>', img: './1000076085.png' },
       { type: 'text', sender: 'sent', name: 'Earth', text: 'Don\'t blame me, I don\'t drive them. They do it themselves. Besides, one of them took a sunset photo the other day and it was objectively gorgeous.' },
       { type: 'text', sender: 'received', name: 'Jupiter', text: 'Ahahaha. Look at the cute little rocky planets. You\'re so small I could fit all of you inside my Great Red Spot and still have room for three moons.' },
-      { type: 'image', sender: 'received', name: 'Jupiter', text: '<i>The giant spinning storm in high definition</i>', img: './tempesta-giove.gif' },
+      { type: 'image', sender: 'received', name: 'Jupiter', text: '<i>The giant spinning storm in high definition</i>', img: './1000076082.gif' },
       { type: 'text', sender: 'received', name: 'Saturn', text: 'Hey big guy, speak for yourself. Look at my rings. Pure, magnificent, shining ice crystals. Nobody has fashion accessories like mine within ten astronomical units.' },
       { type: 'text', sender: 'received', name: 'Uranus', text: 'Guys... have you ever thought about how we\'re all just spinning in circles around a giant ball of fire for no real reason?' },
       { type: 'text', sender: 'received', name: 'Neptune', text: 'Yeah... and it\'s freezing out here. I can\'t feel my fingers. Oh wait, I don\'t have fingers.' },
       { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'Mercury, minus 5 reputation points for the noise. Behave or I\'ll shut down nuclear fusion.' },
-      { type: 'image', sender: 'received', name: 'The Sun [Admin]', text: '<i>Prohibition Card</i>', img: './carta-nera.png' },
+      { type: 'image', sender: 'received', name: 'The Sun [Admin]', text: '<i>Prohibition Card</i>', img: './1000076083.png' },
       { type: 'text', sender: 'sent', name: 'Earth', text: '...does anyone have an aspirin? I think global warming is doing weird things.' },
       { type: 'text', sender: 'received', name: 'Mars', text: 'Serves you right for being so picky with liquid water. Go buy an AC unit.' },
       { type: 'text', sender: 'received', name: 'Jupiter', text: 'Speaking of warming... Earth, your tenants sent another noisy piece of iron out this morning. It flew past Ganymede and made a super annoying beep.' },
@@ -301,7 +298,7 @@
       { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'Breaks don\'t exist in deep space, Mercury. Keep spinning.' },
       { type: 'text', sender: 'received', name: 'Mars', text: 'Hey Sun, instead of playing UV dictator, did you check if my ice caps grew this year? I\'ve been on a strict solid carbon dioxide diet.' },
       { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'I don\'t look at your dust, Mars. I have a nebula to manage three light-years away.' },
-      { type: 'image', sender: 'received', name: 'The Sun [Admin]', text: '<i>Pillars of Creation flex</i>', img: './pilastri-creazione.png' },
+      { type: 'image', sender: 'received', name: 'The Sun [Admin]', text: '<i>Pillars of Creation flex</i>', img: './1000076084.jpg' },
       { type: 'text', sender: 'sent', name: 'Earth', text: 'Guys seriously, there\'s a giant asteroid heading straight for the Pacific. Can someone help me deflect it?' },
       { type: 'text', sender: 'received', name: 'Jupiter', text: 'Don\'t worry Earth, I got it with my gravity. Puff... done. I redirected it toward Venus.' },
       { type: 'text', sender: 'received', name: 'Venus', text: 'WHAT?! ARE YOU INSANE?! IT MISSED ME BY AN INCH! I ALMOST RUINED MY FINISH!' },
@@ -309,7 +306,8 @@
       { type: 'text', sender: 'received', name: 'Uranus', text: 'Guys, I\'ve been rolling on my side for four billion years and nobody ever tells me "Uranus, get comfortable". You\'re terrible neighbors.' },
       { type: 'text', sender: 'received', name: 'Neptune', text: 'I feel you bro. It\'s so quiet out here I can actually hear my own rings freezing.' },
       { type: 'text', sender: 'sent', name: 'Earth', text: 'Well, I\'m turning off the lights. My humans are sleeping and it\'s dead boring. Tomorrow I might invent another ice age just to spice things up.' },
-      { type: 'text', sender: 'received', name: 'Mars', text: 'Let me know if you find a good deal on used rovers. My porch is full of them. Night rocks.' }
+      { type: 'text', sender: 'received', name: 'Mars', text: 'Let me know if you find a good deal on used rovers. My porch is full of them. Night rocks.' },
+      { type: 'image', sender: 'received', name: 'The Sun [Admin]', text: '<i>Galassie lontane fuori dal sistema solare</i>', img: './1000076086.png' }
     ];
 
     const chatBox = document.getElementById('chatBox');
