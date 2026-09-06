@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Solar Chat</title>
+  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
@@ -242,6 +243,7 @@
 <body>
 
   <div class="chat-container">
+    <!-- Chat Header -->
     <div class="chat-header">
       <div class="user-info">
         <i class="fa-solid fa-chevron-left"></i>
@@ -261,6 +263,7 @@
       </div>
     </div>
 
+    <!-- Messages Container -->
     <div class="chat-messages" id="chatBox"></div>
   </div>
 
@@ -279,7 +282,8 @@
 
     const messagesData = [
       { type: 'system', text: 'The Sun added Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune.', time: '12:00' },
-      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: '@everyone SILENCE. Gravity is stable, orbits are circular, no one leaves their track. Good rotation.<br><img src="galassie-lontane.png" alt="Galaxies" class="message-img">', time: '12:01' },
+      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: '@everyone SILENCE. Gravity is stable, orbits are circular, no one leaves their track. Good rotation.', time: '12:01' },
+      { type: 'image', sender: 'received', name: 'The Sun [Admin]', text: '<i>Deep space galaxies overview</i>', img: 'galassie-lontane.png', time: '12:01' },
       { type: 'text', sender: 'received', name: 'Mercury', text: 'GUYS IT\'S HOT. IT\'S HOT IT\'S HOT IT\'S HOT. CAN SOMEONE MOVE ME FURTHER AWAY? PLEASE.', time: '12:02' },
       { type: 'text', sender: 'received', name: 'Venus', text: 'Stop crying, Mercury. Look at how gorgeous I look in Earth\'s skies tonight. Bright, elegant, flawless.<br><i>[Sailor Venus sticker]</i>', time: '12:03' },
       { type: 'text', sender: 'sent', name: 'Earth', text: 'Venus, your atmosphere is made of sulfuric acid and the pressure would crush a submarine. Stop acting like a diva.', time: '12:04' },
@@ -291,7 +295,8 @@
       { type: 'text', sender: 'received', name: 'Saturn', text: 'Hey big guy, speak for yourself. Look at my rings. Pure, magnificent, shining ice crystals. Nobody has fashion accessories like mine within ten astronomical units.', time: '12:08' },
       { type: 'text', sender: 'received', name: 'Uranus', text: 'Guys... have you ever thought about how we\'re all just spinning in circles around a giant ball of fire for no real reason?', time: '12:09' },
       { type: 'text', sender: 'received', name: 'Neptune', text: 'Yeah... and it\'s freezing out here. I can\'t feel my fingers. Oh wait, I don\'t have fingers.', time: '12:10' },
-      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'Mercury, minus 5 reputation points for the noise. Behave or I\'ll shut down nuclear fusion.<br><img src="carta-nera.png" alt="Uno Card" class="message-img">', time: '12:11' },
+      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'Mercury, minus 5 reputation points for the noise. Behave or I\'ll shut down nuclear fusion.', time: '12:11' },
+      { type: 'image', sender: 'received', name: 'The Sun [Admin]', text: '<i>Uno reverse card</i>', img: 'carta-nera.png', time: '12:11' },
       { type: 'text', sender: 'sent', name: 'Earth', text: '...does anyone have an aspirin? I think global warming is doing weird things.', time: '12:12' },
       { type: 'text', sender: 'received', name: 'Mars', text: 'Serves you right for being so picky with liquid water. Go buy an AC unit.', time: '12:13' },
       { type: 'text', sender: 'received', name: 'Jupiter', text: 'Speaking of warming... Earth, your tenants sent another noisy piece of iron out this morning. It flew past Ganymede and made a super annoying beep.', time: '12:14' },
@@ -375,10 +380,10 @@
       animationTimeouts = [];
 
       let delays = [
-        400, 1400, 2600, 3800, 5000, 6300, 7500, 8800, 10100, 11300, 
-        12600, 13900, 15100, 16500, 17800, 19100, 20400, 21600, 22900, 
-        24200, 25500, 26800, 28000, 29300, 30600, 31900, 33200, 34400, 
-        35700, 37000, 38300, 39500, 40800, 42100, 43400, 44700
+        400, 1400, 2000, 3000, 4200, 5400, 6700, 7900, 9200, 10500, 
+        11800, 13000, 14300, 15600, 16900, 18100, 19400, 20700, 22000, 
+        23300, 24500, 25800, 27100, 28400, 29600, 30900, 32200, 33500, 
+        34800, 36000, 37300, 38600, 39900, 41100, 42400, 43700, 45000, 46300
       ];
 
       messagesData.forEach((msg, index) => {
