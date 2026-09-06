@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>COSMIC-S // Special Chat</title>
+  <title>COSMIC-S</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -104,7 +104,7 @@
       margin-bottom: 14px;
     }
     .box-header {
-      background: #f0f0f3;
+      background: #fdfbf7;
       border-bottom: 2px solid #111111;
       padding: 8px 14px;
       font-weight: 700;
@@ -131,7 +131,7 @@
     }
 
     .receipt-box {
-      background: #ffffff;
+      background: #fdfbf7;
       border: 2px solid #111111;
       padding: 18px 14px;
       box-shadow: 4px 4px 0px #111111;
@@ -166,159 +166,126 @@
     }
 
     .nav-box-btn {
-      width: 100%; background: #ffffff; border: 2px solid #111; border-radius: 16px; padding: 10px; font-weight: 800; font-size: 0.75rem; cursor: pointer; box-shadow: 3px 3px 0px #111; text-align: center; margin-bottom: 14px; text-decoration: none; color: #111; display: block;
+      width: 100%; background: #fdfbf7; border: 2px solid #111; border-radius: 16px; padding: 10px; font-weight: 800; font-size: 0.75rem; cursor: pointer; box-shadow: 3px 3px 0px #111; text-align: center; margin-bottom: 14px; text-decoration: none; color: #111; display: block;
     }
     .nav-box-btn-dark {
       width: 100%; background: #111111; color: #ffffff; border: 2px solid #111; border-radius: 16px; padding: 10px; font-weight: 800; font-size: 0.75rem; cursor: pointer; box-shadow: 3px 3px 0px #111; text-align: center; margin-bottom: 14px; text-decoration: none; display: block;
     }
 
-    /* STILI INTEGRATI PER LA CHAT INTERATTIVA NELLA COLONNA CENTRALE */
-    .chat-simulation-box {
-      background: #8daebb;
-      border: 3px solid #111111;
+    /* STILE CHAT DI GRUPPO INTEGRATA (COLORI TACCUINO / CREMA E BIANCO/NERO) */
+    .chat-group-box {
+      background: #fdfbf7;
+      border: 2px solid #111111;
       border-radius: 22px;
       overflow: hidden;
-      box-shadow: 4px 4px 0px #111111;
+      box-shadow: 3px 3px 0px #111111;
       display: flex;
       flex-direction: column;
       margin-bottom: 14px;
     }
 
-    .chat-header-sim {
-      background-color: #2b3a42;
-      color: white;
-      padding: 12px 15px;
+    .chat-group-header {
+      background-color: #111111;
+      color: #ffffff;
+      padding: 10px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       border-bottom: 2px solid #111;
     }
 
-    .user-info-sim {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .avatar-sim {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background-color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #2b3a42;
-      font-weight: bold;
-      font-size: 0.8rem;
-    }
-
-    .chat-messages-sim {
+    .chat-group-messages {
       padding: 12px;
-      max-height: 350px;
+      max-height: 340px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 10px;
+      background: #fdfbf7;
     }
 
-    .message-sim {
+    .message-item {
+      display: flex;
+      flex-direction: column;
       max-width: 85%;
-      padding: 8px 12px;
-      border-radius: 12px;
-      font-size: 0.85rem;
-      line-height: 1.4;
       opacity: 0;
       transform: translateY(10px);
       animation: fadeInMsg 0.3s forwards ease-in-out;
-      border: 1px solid #111;
     }
 
     @keyframes fadeInMsg {
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .message-sim.received {
-      align-self: flex-start;
-      background-color: #ffffff;
-      color: #000;
-      border-bottom-left-radius: 2px;
-    }
+    .message-item.incoming { align-self: flex-start; }
+    .message-item.outgoing { align-self: flex-end; align-items: flex-end; }
 
-    .message-sim.sent {
-      align-self: flex-end;
-      background-color: #f7e665;
-      color: #000;
-      border-bottom-right-radius: 2px;
-    }
-
-    .timestamp-sim {
-      font-size: 9px;
+    .sender-name {
+      font-size: 0.68rem;
+      font-weight: 800;
       color: #555;
-      margin-top: 3px;
-      text-align: right;
+      margin-bottom: 2px;
+      padding-left: 4px;
     }
 
-    .audio-player-sim {
+    .message-bubble {
+      padding: 8px 12px;
+      border-radius: 14px;
+      font-size: 0.8rem;
+      line-height: 1.4;
+      border: 2px solid #111111;
+    }
+
+    .incoming .message-bubble {
+      background-color: #ffffff;
+      color: #111;
+      border-bottom-left-radius: 2px;
+      box-shadow: 2px 2px 0px #111;
+    }
+
+    .outgoing .message-bubble {
+      background-color: #111111;
+      color: #ffffff;
+      border-bottom-right-radius: 2px;
+      box-shadow: 2px 2px 0px #444;
+    }
+
+    .timestamp-chat {
+      font-size: 9px;
+      color: #777;
+      margin-top: 3px;
+      padding: 0 2px;
+    }
+
+    .chat-audio-wrap {
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .play-btn-sim {
-      background-color: #000;
+    .chat-play-btn {
+      background-color: #111;
       color: #fff;
-      border: none;
-      width: 28px;
-      height: 28px;
+      border: 1px solid #111;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
     }
+    .outgoing .chat-play-btn { background: #fff; color: #111; }
 
-    .final-banner-sim {
+    .chat-final-banner {
       display: none;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
-      padding: 15px;
+      gap: 8px;
+      padding: 12px;
       background: #ffffff;
       border-top: 2px solid #111;
-    }
-
-    .social-icons-sim {
-      display: flex;
-      gap: 12px;
-    }
-
-    .social-btn-sim {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: #111;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      text-decoration: none;
-      font-size: 14px;
-      box-shadow: 2px 2px 0px #555;
-    }
-
-    .card-banner-sim {
-      background: #f0f0f3;
-      border: 2px solid #111;
-      border-radius: 10px;
-      padding: 10px;
-      width: 100%;
-      text-align: center;
-      font-size: 0.78rem;
-    }
-    .card-banner-sim a {
-      display: block; margin-top: 6px; font-weight: bold; color: #111; text-decoration: none;
     }
 
     .site-footer { border-top: 2px solid #111; padding-top: 12px; text-align: center; font-weight: 700; font-size: 0.72rem; color: #555; }
@@ -329,19 +296,21 @@
 
   <div class="site-wrapper">
 
+    <!-- Top Banner -->
     <header class="top-banner">
       <h1>COSMIC-S</h1>
     </header>
 
     <div class="grid-container">
 
+      <!-- COLONNA SINISTRA -->
       <aside class="col-left">
         <div class="receipt-box">
           <div class="receipt-title">.☘︎ ݁˖ MENU ☰ ❞</div>
           <hr class="receipt-dash">
           <ul class="receipt-menu-list">
             <li><a class="active">˙ᵕ˙ HOME</a></li>
-            <li><a href="#">LOGS &amp; BLOG ✐ᝰ</a></li>
+            <li><a href="#">BLOG ✐ᝰ</a></li>
             <li><a href="#">GALLERY ⋆˚꩜｡</a></li>
             <li><a href="#">STORIES</a></li>
           </ul>
@@ -366,38 +335,31 @@
         </div>
       </aside>
 
+      <!-- COLONNA CENTRALE (CHAT DI GRUPPO TRA PIANETI) -->
       <main class="col-center">
         <div style="margin-bottom: 14px;">
-          <img src="./about-me-card.png" alt="about_me.id" class="pure-card-img" onerror="this.style.height='150px'; this.style.background='#ddd';">
+          <img src="./about-me-card.png" alt="about_me.id" class="pure-card-img" onerror="this.style.height='140px'; this.style.background='#fdfbf7';">
         </div>
 
-        <div class="chat-simulation-box">
-          <div class="chat-header-sim">
-            <div class="user-info-sim">
-              <div class="avatar-sim">KF</div>
-              <span style="font-weight: bold; font-size: 0.85rem;">Koharu Fuyutsuki</span>
-            </div>
-            <div>
-              <i class="fa-solid fa-phone" style="font-size: 0.8rem;"></i>
-            </div>
+        <!-- Box della Chat di Gruppo -->
+        <div class="chat-group-box">
+          <div class="chat-group-header">
+            <span style="font-weight: 800; font-size: 0.85rem;"><i class="fa-solid fa-globe"></i> Solar System Group</span>
+            <span style="font-size: 0.7rem; background: #333; padding: 2px 6px; border-radius: 8px;">9 members</span>
           </div>
 
-          <div class="chat-messages-sim" id="chatBoxSim"></div>
+          <!-- Messaggi di Gruppo Dinamici -->
+          <div class="chat-group-messages" id="chatGroupMsgs"></div>
 
-          <div class="final-banner-sim" id="finalBannerSim">
-            <div class="social-icons-sim">
-              <a href="#" class="social-btn-sim"><i class="fa-brands fa-x-twitter"></i></a>
-              <a href="#" class="social-btn-sim"><i class="fa-solid fa-comment"></i></a>
-              <a href="#" class="social-btn-sim"><i class="fa-brands fa-facebook-f"></i></a>
-            </div>
-            <div class="card-banner-sim">
-              <p><i>"Unisciti a noi e scopri la storia..."</i></p>
-              <a href="#">Vai al sito ufficiale &rarr;</a>
-            </div>
+          <!-- Banner finale di gruppo -->
+          <div class="chat-final-banner" id="chatFinalBanner">
+            <p style="font-size: 0.75rem; font-weight: 700;"><i>"Esplora l'universo di COSMIC-S"</i></p>
+            <a href="#" style="font-size: 0.75rem; font-weight: 800; color: #111; text-decoration: underline;">Torna alla home del taccuino &rarr;</a>
           </div>
         </div>
       </main>
 
+      <!-- COLONNA DESTRA -->
       <aside class="col-right">
         <div class="pixel-clock-box-dark">
           <div class="pixel-clock-time-dark" id="pixel-clock">00:00:00</div>
@@ -424,95 +386,88 @@
   </div>
 
   <script>
-    // Dati dei messaggi della chat in stile Line
-    const messagesData = [
-      { type: 'text', sender: 'received', text: 'Grazie per oggi!', time: '20:45', delay: 1000 },
-      { type: 'text', sender: 'sent', text: 'Di cosa parli?', time: '21:00', delay: 2500 },
-      { type: 'text', sender: 'received', text: 'Sì, esatto', time: '21:12', delay: 4000 },
-      { type: 'text', sender: 'sent', text: 'Come si fa?', time: '21:13', delay: 5500 },
+    // Conversazione di gruppo tra i pianeti del Sistema Solare nello stile del sito
+    const planetChatData = [
+      { sender: 'Mercury', type: 'text', text: 'Ragazzi, avete visto chi è passato sul sito oggi?', time: '14:02', delay: 1000 },
+      { sender: 'Venus', type: 'text', text: 'Sì! Ho visto dei nuovi timbri pazzeschi nella gallery ✨', time: '14:03', delay: 2600 },
+      { sender: 'Earth (You)', type: 'text', text: 'Grazie! Sto sistemando la nuova pagina del taccuino.', time: '14:05', delay: 4200 },
+      { sender: 'Mars', type: 'text', text: 'Meno male che ci sono visite reali e non solo i soliti bot di Neocities 😤', time: '14:06', delay: 5800 },
       { 
+        sender: 'Saturn', 
         type: 'audio', 
-        sender: 'sent', 
         audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 
-        time: '21:13', 
-        delay: 7000 
+        time: '14:08', 
+        delay: 7500 
       },
-      { type: 'text', sender: 'received', text: 'Hai mandato un vocale!', time: '21:15', delay: 9000 },
-      { type: 'text', sender: 'sent', text: 'Posso cancellarlo?', time: '21:15', delay: 10500 },
-      { 
-        type: 'audio', 
-        sender: 'received', 
-        audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', 
-        time: '21:16', 
-        delay: 12000 
-      }
+      { sender: 'Jupiter', type: 'text', text: 'Ascoltate questo vocale che ha mandato Saturno!', time: '14:09', delay: 9500 },
+      { sender: 'Neptune', type: 'text', text: 'Troppo bello... continuate così con COSMIC-S!', time: '14:10', delay: 11200 }
     ];
 
-    const chatBoxSim = document.getElementById('chatBoxSim');
-    const finalBannerSim = document.getElementById('finalBannerSim');
+    const chatGroupMsgs = document.getElementById('chatGroupMsgs');
+    const chatFinalBanner = document.getElementById('chatFinalBanner');
 
-    function addMessageSim(msg) {
-      const msgDiv = document.createElement('div');
-      msgDiv.classList.add('message-sim', msg.sender);
+    function addGroupMessage(msg) {
+      const isOutgoing = msg.sender.includes('Earth');
+      const itemDiv = document.createElement('div');
+      itemDiv.classList.add('message-item', isOutgoing ? 'outgoing' : 'incoming');
 
+      let bubbleContent = '';
       if (msg.type === 'text') {
-        msgDiv.innerHTML = `
-          <div>${msg.text}</div>
-          <div class="timestamp-sim">${msg.time}</div>
-        `;
+        bubbleContent = `<div>${msg.text}</div>`;
       } else if (msg.type === 'audio') {
-        msgDiv.innerHTML = `
-          <div class="audio-player-sim">
-            <button class="play-btn-sim" onclick="playAudioSim('${msg.audioUrl}', this)">
+        bubbleContent = `
+          <div class="chat-audio-wrap">
+            <button class="chat-play-btn" onclick="playGroupAudio('${msg.audioUrl}', this)">
               <i class="fa-solid fa-play"></i>
             </button>
-            <span>Vocale</span>
+            <span>Messaggio Vocale</span>
           </div>
-          <div class="timestamp-sim">${msg.time}</div>
         `;
       }
 
-      chatBoxSim.appendChild(msgDiv);
-      chatBoxSim.scrollTop = chatBoxSim.scrollHeight;
+      itemDiv.innerHTML = `
+        <div class="sender-name">${msg.sender}</div>
+        <div class="message-bubble">${bubbleContent}</div>
+        <div class="timestamp-chat">${msg.time}</div>
+      `;
+
+      chatGroupMsgs.appendChild(itemDiv);
+      chatGroupMsgs.scrollTop = chatGroupMsgs.scrollHeight;
     }
 
-    let currentAudioSim = null;
-    let currentBtnSim = null;
+    let activeGroupAudio = null;
+    let activeGroupBtn = null;
 
-    function playAudioSim(url, btn) {
-      if (currentAudioSim) {
-        currentAudioSim.pause();
-        if (currentBtnSim) currentBtnSim.innerHTML = '<i class="fa-solid fa-play"></i>';
+    function playGroupAudio(url, btn) {
+      if (activeGroupAudio) {
+        activeGroupAudio.pause();
+        if (activeGroupBtn) activeGroupBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
       }
+      if (activeGroupBtn === btn && !activeGroupAudio.paused) return;
 
-      if (currentBtnSim === btn && !currentAudioSim.paused) {
-        return;
-      }
-
-      currentAudioSim = new Audio(url);
-      currentBtnSim = btn;
+      activeGroupAudio = new Audio(url);
+      activeGroupBtn = btn;
       btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-      currentAudioSim.play();
+      activeGroupAudio.play();
 
-      currentAudioSim.onended = () => {
+      activeGroupAudio.onended = () => {
         btn.innerHTML = '<i class="fa-solid fa-play"></i>';
       };
     }
 
-    messagesData.forEach((msg, index) => {
+    planetChatData.forEach((msg, index) => {
       setTimeout(() => {
-        addMessageSim(msg);
-        
-        if (index === messagesData.length - 1) {
+        addGroupMessage(msg);
+        if (index === planetChatData.length - 1) {
           setTimeout(() => {
-            finalBannerSim.style.display = 'flex';
-            chatBoxSim.scrollTop = chatBoxSim.scrollHeight;
+            chatFinalBanner.style.display = 'flex';
+            chatGroupMsgs.scrollTop = chatGroupMsgs.scrollHeight;
           }, 1500);
         }
       }, msg.delay);
     });
 
-    // Orologio e Calendario
+    // Calendario e Orologio
     function generateCalendar() {
       const today = new Date();
       const currentDay = today.getDate();
