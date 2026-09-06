@@ -75,7 +75,7 @@
       object-fit: cover;
     }
 
-    /* Dropdown Menu for Animation Toggle */
+    /* Dropdown Menu - Svuotato/Disabilitato */
     .menu-container {
       position: relative;
     }
@@ -91,43 +91,12 @@
 
     .dropdown-menu {
       display: none;
-      position: absolute;
-      right: 0;
-      top: 35px;
-      background-color: #111111;
-      border: 2px solid #F0E8D5;
-      border-radius: 8px;
-      width: 220px;
-      box-shadow: 3px 3px 0px #F0E8D5;
-      z-index: 100;
-    }
-
-    .dropdown-menu.active {
-      display: block;
-    }
-
-    .dropdown-item {
-      padding: 12px 15px;
-      color: #F0E8D5;
-      font-size: 13px;
-      cursor: pointer;
-      border-bottom: 1px solid rgba(240, 232, 213, 0.2);
-      text-decoration: none;
-      display: block;
-    }
-
-    .dropdown-item:last-child {
-      border-bottom: none;
-    }
-
-    .dropdown-item:hover {
-      background-color: rgba(240, 232, 213, 0.1);
     }
 
     /* Messages Area */
     .chat-messages {
       flex: 1;
-      padding: 20px 20px 80px 20px;
+      padding: 20px 20px 120px 20px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -139,14 +108,6 @@
       align-items: flex-end;
       gap: 8px;
       max-width: 85%;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.3s, transform 0.3s;
-    }
-
-    .message-row.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     .message-row.received {
@@ -247,9 +208,7 @@
       </div>
       <div class="menu-container">
         <button class="menu-btn" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
-        <div class="dropdown-menu" id="dropdownMenu">
-          <div class="dropdown-item" id="stopAnimationBtn">Turn off animation</div>
-        </div>
+        <div class="dropdown-menu" id="dropdownMenu"></div>
       </div>
     </div>
 
@@ -283,7 +242,8 @@
       { type: 'image', sender: 'received', name: 'Jupiter', text: '<i>The giant spinning storm in high definition</i>', img: './tempesta-giove.gif' },
       { type: 'text', sender: 'received', name: 'Saturn', text: 'Hey big guy, speak for yourself. Look at my rings. Pure, magnificent, shining ice crystals. Nobody has fashion accessories like mine within ten astronomical units.' },
       { type: 'text', sender: 'received', name: 'Uranus', text: 'Guys... have you ever thought about how we\'re all just spinning in circles around a giant ball of fire for no real reason?' },
-      { type: 'text', sender: 'received', name: 'Neptune', text: 'Yeah... and it\'s freezing out here. I can\'t feel my fingers. Oh wait, I don\'t have fingers.' },
+      { type: 'text', sender: 'received', name: 'Neptune', text: 'Yeah... and it\'s freezing out here. Look out there into the deep universe, it\'s totally insane.' },
+      { type: 'image', sender: 'received', name: 'Neptune', text: '<i>Deep Field Space</i>', img: './galassie-lontane.png' },
       { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'Mercury, minus 5 reputation points for the noise. Behave or I\'ll shut down nuclear fusion.' },
       { type: 'image', sender: 'received', name: 'The Sun [Admin]', text: '<i>Prohibition Card</i>', img: './carta-nera.png' },
       { type: 'text', sender: 'sent', name: 'Earth', text: '...does anyone have an aspirin? I think global warming is doing weird things.' },
@@ -294,5 +254,66 @@
       { type: 'text', sender: 'received', name: 'Venus', text: 'So cute, thinking they can go anywhere with that fossil fuel tech. Fools.' },
       { type: 'text', sender: 'received', name: 'Uranus', text: 'By the way, what happened to Pluto? Why does he never write in the chat?' },
       { type: 'text', sender: 'received', name: 'Saturn', text: 'He got kicked out of the group because he didn\'t meet the minimum mass requirements. Now he hangs out at the Kuiper Belt Club drinking frozen methane cocktails with his weird friends.' },
-      { type: '
+      { type: 'text', sender: 'received', name: 'Neptune', text: 'Ah, so I\'m not the only one ignored at galaxy meetups. Good to know.' },
+      { type: 'text', sender: 'received', name: 'Mercury', text: 'Guys, I have a rotation lock. I\'m spinning terribly, I feel so nauseous. Sun, can I take a break? Just one hour of total darkness?' },
+      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'Breaks don\'t exist in deep space, Mercury. Keep spinning.' },
+      { type: 'text', sender: 'received', name: 'Mars', text: 'Hey Sun, instead of playing UV dictator, did you check if my ice caps grew this year? I\'ve been on a strict solid carbon dioxide diet.' },
+      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'I don\'t look at your dust, Mars. I have a nebula to manage three light-years away.' },
+      { type: 'image', sender: 'received', name: 'The Sun [Admin]', text: '<i>Pillars of Creation flex</i>', img: './pilastri-creazione.png' },
+      { type: 'text', sender: 'sent', name: 'Earth', text: 'Guys seriously, there\'s a giant asteroid heading straight for the Pacific. Can someone help me deflect it?' },
+      { type: 'text', sender: 'received', name: 'Jupiter', text: 'Don\'t worry Earth, I got it with my gravity. Puff... done. I redirected it toward Venus.' },
+      { type: 'text', sender: 'received', name: 'Venus', text: 'WHAT?! ARE YOU INSANE?! IT MISSED ME BY AN INCH! I ALMOST RUINED MY FINISH!' },
+      { type: 'text', sender: 'received', name: 'Jupiter', text: 'Oops. My mass slipped. Ahahaha.' },
+      { type: 'text', sender: 'received', name: 'Uranus', text: 'Guys, I\'ve been rolling on my side for four billion years and nobody ever tells me "Uranus, get comfortable". You\'re terrible neighbors.' },
+      { type: 'text', sender: 'received', name: 'Neptune', text: 'I feel you bro. It\'s so quiet out here I can actually hear my own rings freezing.' },
+      { type: 'text', sender: 'sent', name: 'Earth', text: 'Well, I\'m turning off the lights. My humans are sleeping and it\'s dead boring. Tomorrow I might invent another ice age just to spice things up.' },
+      { type: 'text', sender: 'received', name: 'Mars', text: 'Let me know if you find a good deal on used rovers. My porch is full of them. Night rocks.' }
+    ];
 
+    const chatBox = document.getElementById('chatBox');
+
+    function renderAllMessages() {
+      chatBox.innerHTML = '';
+      messagesData.forEach((msg) => {
+        const msgDiv = document.createElement('div');
+        
+        if (msg.type === 'system') {
+          msgDiv.style.textAlign = 'center';
+          msgDiv.style.fontSize = '12px';
+          msgDiv.style.color = '#F0E8D5';
+          msgDiv.style.opacity = '0.85';
+          msgDiv.style.margin = '8px 0';
+          msgDiv.style.width = '100%';
+          msgDiv.style.textShadow = '1px 1px 2px #000';
+          msgDiv.innerHTML = `<i>${msg.text}</i>`;
+        } else {
+          msgDiv.classList.add('message-row', msg.sender);
+          let imgFileName = profileImages[msg.name] || './planet.png';
+
+          let innerContent = `<div>${msg.text}</div>`;
+          if (msg.type === 'image') {
+            innerContent += `<img src="${msg.img}" alt="Chat Image" class="message-img" onerror="this.src='https://via.placeholder.com/220x140/111/F0E8D5?text=Image';">`;
+          }
+
+          msgDiv.innerHTML = `
+            <div class="msg-avatar">
+              <img src="${imgFileName}" alt="${msg.name}" onerror="this.style.display='none'; this.parentNode.innerText='${msg.name.substring(0,3).toUpperCase()}';">
+            </div>
+            <div class="message-content">
+              <div class="sender-name">${msg.name}</div>
+              <div class="message-bubble">
+                ${innerContent}
+              </div>
+            </div>
+          `;
+        }
+        chatBox.appendChild(msgDiv);
+      });
+
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    renderAllMessages();
+  </script>
+</body>
+</html>
