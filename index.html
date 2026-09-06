@@ -17,27 +17,22 @@
     html, body {
       width: 100%;
       height: 100%;
-      /* Sfondo a quadretti nero con righe color #F0E8D5 sfumato */
+      background-color: #000000;
+      overflow: hidden;
+    }
+
+    /* La chat ora occupa l'intera pagina e contiene direttamente lo sfondo a quadretti color #F0E8D5 */
+    .chat-container {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
       background-color: #000000;
       background-image: 
         linear-gradient(rgba(240, 232, 213, 0.18) 1px, transparent 1px),
         linear-gradient(90deg, rgba(240, 232, 213, 0.18) 1px, transparent 1px);
       background-size: 20px 20px;
-      overflow-x: hidden;
-    }
-
-    .chat-container {
-      width: 100%;
-      max-width: 600px;
-      margin: 0 auto;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      background-color: rgba(0, 0, 0, 0.9);
       position: relative;
-      border-left: 2px solid #F0E8D5;
-      border-right: 2px solid #F0E8D5;
-      box-shadow: 4px 0px 15px rgba(240, 232, 213, 0.15);
     }
 
     /* Intestazione Chat */
@@ -75,10 +70,10 @@
       flex-shrink: 0;
     }
 
-    /* Area Messaggi */
+    /* Area Messaggi con sfondo a griglia immediatamente visibile dietro ai fumetti */
     .chat-messages {
       flex: 1;
-      padding: 15px;
+      padding: 20px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -141,7 +136,7 @@
       color: #F0E8D5;
       margin-bottom: 3px;
       padding-left: 4px;
-      opacity: 0.85;
+      text-shadow: 1px 1px 2px #000;
     }
 
     .sent .sender-name {
@@ -219,6 +214,7 @@
       border-radius: 12px;
       padding: 15px;
       width: 90%;
+      max-width: 500px;
       text-align: center;
       box-shadow: 3px 3px 0px #F0E8D5;
     }
@@ -330,9 +326,10 @@
         msgDiv.style.textAlign = 'center';
         msgDiv.style.fontSize = '12px';
         msgDiv.style.color = '#F0E8D5';
-        msgDiv.style.opacity = '0.7';
+        msgDiv.style.opacity = '0.85';
         msgDiv.style.margin = '8px 0';
         msgDiv.style.width = '100%';
+        msgDiv.style.textShadow = '1px 1px 2px #000';
         msgDiv.innerHTML = `<i>${msg.text}</i>`;
       } else {
         msgDiv.classList.add('message-row', msg.sender);
@@ -351,7 +348,7 @@
       }
 
       chatBox.appendChild(msgDiv);
-      window.scrollTo(0, document.body.scrollHeight);
+      chatBox.scrollTop = chatBox.scrollHeight;
     }
 
     messagesData.forEach((msg, index) => {
@@ -360,7 +357,7 @@
         if (index === messagesData.length - 1) {
           setTimeout(() => {
             finalBanner.style.display = 'flex';
-            window.scrollTo(0, document.body.scrollHeight);
+            chatBox.scrollTop = chatBox.scrollHeight;
           }, 1500);
         }
       }, msg.delay);
