@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chat Gruppo - Sistema Solare</title>
-  <!-- Icone FontAwesome per tasti Play e Social -->
+  <!-- Icone FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
@@ -17,17 +17,27 @@
     html, body {
       width: 100%;
       height: 100%;
+      /* Sfondo a quadretti in stile taccuino/spaziale basato sull'immagine di riferimento */
       background-color: #fdfbf7;
+      background-image: 
+        linear-gradient(to right, rgba(200, 200, 200, 0.25) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(200, 200, 200, 0.25) 1px, transparent 1px);
+      background-size: 20px 20px;
       overflow-x: hidden;
     }
 
     .chat-container {
       width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      background-color: #fdfbf7;
+      background-color: rgba(253, 251, 247, 0.95);
       position: relative;
+      border-left: 2px solid #111;
+      border-right: 2px solid #111;
+      box-shadow: 4px 0px 15px rgba(0,0,0,0.1);
     }
 
     /* Intestazione Chat (Stile Nero/Bianco) */
@@ -63,12 +73,6 @@
       border: 2px solid #111;
       overflow: hidden;
       flex-shrink: 0;
-    }
-
-    .avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
     }
 
     /* Area Messaggi */
@@ -116,16 +120,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
+      font-size: 8px;
       font-weight: bold;
+      color: #111;
       overflow: hidden;
       flex-shrink: 0;
-    }
-
-    .msg-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      text-align: center;
+      padding: 2px;
+      word-break: break-all;
     }
 
     .message-content {
@@ -146,7 +148,7 @@
       padding-right: 4px;
     }
 
-    /* Bubble dei messaggi (Palette Taccuino) */
+    /* Bubble dei messaggi */
     .message-bubble {
       padding: 10px 14px;
       border-radius: 15px;
@@ -235,7 +237,7 @@
     <div class="chat-header">
       <div class="user-info">
         <i class="fa-solid fa-chevron-left"></i>
-        <div class="avatar"><i class="fa-solid fa-globe"></i></div>
+        <div class="avatar">SUN</div>
         <div>
           <span style="font-weight: bold; display: block; font-size: 14px;">IL SISTEMA SOLARE - GRUPPO UFFICIALE</span>
           <span style="font-size: 11px; color: #aaa;">Sole, Mercurio, Venere, Terra, Marte, Giove...</span>
@@ -265,17 +267,18 @@
   </div>
 
   <script>
-    // Mappa delle immagini profilo (puoi sostituire i link con le immagini che preferisci)
-    const avatars = {
-      'Il Sole [Admin]': 'https://api.iconify.design/fluent-emoji-flat:sun.svg',
-      'Mercurio': 'https://api.iconify.design/fluent-emoji-flat:ringed-planet.svg', // o pianeta Mercurio
-      'Venere': 'https://api.iconify.design/fluent-emoji-flat:globe-showing-americas.svg',
-      'Terra': 'https://api.iconify.design/fluent-emoji-flat:globe-with-meridians.svg',
-      'Marte': 'https://api.iconify.design/fluent-emoji-flat:red-circle.svg',
-      'Giove': 'https://api.iconify.design/fluent-emoji-flat:brown-circle.svg',
-      'Saturno': 'https://api.iconify.design/fluent-emoji-flat:ringed-planet.svg',
-      'Urano': 'https://api.iconify.design/fluent-emoji-flat:purple-circle.svg',
-      'Nettuno': 'https://api.iconify.design/fluent-emoji-flat:blue-circle.svg'
+    // Nomi dei file .png impostati come richiesto per le foto profilo
+    const profileImages = {
+      'Il Sole [Admin]': 'sole.png',
+      'Mercurio': 'mercurio.png',
+      'Venere': 'venere.png',
+      'Terra': 'terra.png',
+      'Marte': 'marte.png',
+      'Giove': 'giove.png',
+      'Saturno': 'saturno.png',
+      'Urano': 'urano.png',
+      'Nettuno': 'nettuno.png',
+      'Sistema': 'sistema.png'
     };
 
     const messagesData = [
@@ -332,11 +335,11 @@
       } else {
         msgDiv.classList.add('message-row', msg.sender);
         
-        let avatarUrl = avatars[msg.name] || '';
-        let avatarContent = avatarUrl ? `<img src="${avatarUrl}" alt="${msg.name}">` : msg.name.charAt(0);
+        // Assegna il nome del file .png come richiesto
+        let pngName = profileImages[msg.name] || 'pianeta.png';
 
         msgDiv.innerHTML = `
-          <div class="msg-avatar">${avatarContent}</div>
+          <div class="msg-avatar">${pngName}</div>
           <div class="message-content">
             <div class="sender-name">${msg.name}</div>
             <div class="message-bubble">
@@ -366,3 +369,4 @@
   </script>
 </body>
 </html>
+
