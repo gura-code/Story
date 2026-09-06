@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Solar Chat</title>
+  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
@@ -63,7 +64,7 @@
       align-items: center;
       justify-content: center;
       font-weight: bold;
-      border: 2px solid #F0E8D5;
+      border: none;
       overflow: hidden;
       flex-shrink: 0;
     }
@@ -162,7 +163,7 @@
       height: 32px;
       border-radius: 50%;
       background: #F0E8D5;
-      border: 2px solid #F0E8D5;
+      border: none;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -236,64 +237,12 @@
       text-align: right;
     }
     .sent .timestamp { color: #444444; }
-
-    .final-banner {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-      margin-top: 20px;
-      padding-bottom: 30px;
-    }
-
-    .final-banner.visible {
-      display: flex;
-    }
-
-    .social-icons {
-      display: flex;
-      gap: 15px;
-    }
-
-    .social-btn {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      background: #111;
-      border: 2px solid #F0E8D5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #F0E8D5;
-      text-decoration: none;
-      font-size: 18px;
-      box-shadow: 2px 2px 0px #F0E8D5;
-    }
-
-    .card-banner {
-      background: #111111;
-      color: #F0E8D5;
-      border: 2px solid #F0E8D5;
-      border-radius: 12px;
-      padding: 15px;
-      width: 90%;
-      max-width: 500px;
-      text-align: center;
-      box-shadow: 3px 3px 0px #F0E8D5;
-    }
-
-    .card-banner a {
-      display: block;
-      margin-top: 10px;
-      font-weight: bold;
-      color: #F0E8D5;
-      text-decoration: none;
-    }
   </style>
 </head>
 <body>
 
   <div class="chat-container">
+    <!-- Chat Header -->
     <div class="chat-header">
       <div class="user-info">
         <i class="fa-solid fa-chevron-left"></i>
@@ -313,19 +262,8 @@
       </div>
     </div>
 
+    <!-- Messages Container -->
     <div class="chat-messages" id="chatBox"></div>
-
-    <div class="final-banner" id="finalBanner">
-      <div class="social-icons">
-        <a href="#" class="social-btn"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="#" class="social-btn"><i class="fa-solid fa-comment"></i></a>
-        <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
-      </div>
-      <div class="card-banner">
-        <p><i>"Explore the universe and discover the story of the planets..."</i></p>
-        <a href="#">Back to COSMIC-S Notebook &rarr;</a>
-      </div>
-    </div>
   </div>
 
   <script>
@@ -381,7 +319,6 @@
     ];
 
     const chatBox = document.getElementById('chatBox');
-    const finalBanner = document.getElementById('finalBanner');
     const menuToggle = document.getElementById('menuToggle');
     const dropdownMenu = document.getElementById('dropdownMenu');
     const stopAnimationBtn = document.getElementById('stopAnimationBtn');
@@ -436,7 +373,6 @@
 
     function startProgressiveLoading() {
       chatBox.innerHTML = '';
-      finalBanner.classList.remove('visible');
       animationTimeouts.forEach(t => clearTimeout(t));
       animationTimeouts = [];
 
@@ -458,32 +394,22 @@
         
         animationTimeouts.push(t);
       });
-
-      let finalT = setTimeout(() => {
-        finalBanner.classList.add('visible');
-        chatBox.scrollTop = chatBox.scrollHeight;
-      }, 46000);
-      animationTimeouts.push(finalT);
     }
 
     stopAnimationBtn.addEventListener('click', () => {
-      // Clear all scheduled timeouts to stop the progressive animation effect
       animationTimeouts.forEach(t => clearTimeout(t));
       animationTimeouts = [];
       chatBox.innerHTML = '';
 
-      // Instantly render all messages at once
       messagesData.forEach((msg) => {
         let msgDiv = createMessageElement(msg);
         msgDiv.classList.add('visible');
         chatBox.appendChild(msgDiv);
       });
 
-      finalBanner.classList.add('visible');
       chatBox.scrollTop = chatBox.scrollHeight;
     });
 
-    // Automatically start the animation loop when the page loads
     startProgressiveLoading();
   </script>
 </body>
