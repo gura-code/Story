@@ -34,7 +34,7 @@
       position: relative;
     }
 
-    /* Chat Header - Nero nerissimo */
+    /* Chat Header - Deep Black */
     .chat-header {
       background-color: #000000;
       color: #F0E8D5;
@@ -89,7 +89,7 @@
       padding: 5px;
     }
 
-    /* Stile per il menu a tendina dei crediti */
+    /* Dropdown Menu for Credits & Info */
     .dropdown-menu {
       display: none;
       position: absolute;
@@ -98,7 +98,7 @@
       background-color: #111111;
       border: 2px solid #F0E8D5;
       border-radius: 10px;
-      width: 260px;
+      width: 280px;
       padding: 15px;
       color: #F0E8D5;
       box-shadow: 0 4px 15px rgba(0,0,0,0.8);
@@ -118,12 +118,12 @@
       margin-bottom: 8px;
     }
 
-    .dropdown-menu ul {
-      padding-left: 15px;
-      margin-bottom: 8px;
+    .dropdown-menu a {
+      color: #F0E8D5;
+      text-decoration: underline;
     }
 
-    /* Messages Area con ampio spazio in fondo */
+    /* Messages Area */
     .chat-messages {
       flex: 1;
       padding: 20px 20px 140px 20px;
@@ -233,7 +233,7 @@
       transform: scale(1.02);
     }
 
-    /* Lightbox stile WhatsApp */
+    /* WhatsApp-style Lightbox */
     #lightbox {
       position: fixed;
       top: 0;
@@ -275,10 +275,10 @@
       <div class="menu-container">
         <button class="menu-btn" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
         <div class="dropdown-menu" id="dropdownMenu">
-          <h4>Informazioni & Crediti</h4>
-          <p><b>Solar Chat:</b> Ideato e sviluppato da te sul tuo sito WordPress.</p>
-          <p><b>Immagini:</b> Tratte dagli archivi pubblici di NASA, ESA, CSA e Wikimedia Commons.</p>
-          <p style="margin-bottom: 0; opacity: 0.8; font-size: 11px;">Tutti i diritti dei corpi celesti appartengono all'Universo.</p>
+          <h4>Info & Credits</h4>
+          <p><b>Creator:</b> Created by <b>Seea</b> on <a href="https://cosmic-seea.neocities.org/" target="_blank">Neocities</a>.</p>
+          <p><b>Image Credits:</b> Space imagery courtesy of NASA, ESA, CSA, and Wikimedia Commons public archives.</p>
+          <p style="margin-bottom: 0; opacity: 0.8; font-size: 11px;">All celestial rights belong to the Universe.</p>
         </div>
       </div>
     </div>
@@ -287,7 +287,7 @@
     <div class="chat-messages" id="chatBox"></div>
   </div>
 
-  <!-- Lightbox per ingrandire le immagini -->
+  <!-- Lightbox for Image Zoom -->
   <div id="lightbox">
     <img id="lightbox-img" src="" alt="Fullscreen Image">
   </div>
@@ -352,13 +352,13 @@
     const menuToggle = document.getElementById('menuToggle');
     const dropdownMenu = document.getElementById('dropdownMenu');
 
-    // Gestione apertura/chiusura menu a tendina
+    // Toggle dropdown menu
     menuToggle.addEventListener('click', (e) => {
       e.stopPropagation();
       dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
     });
 
-    // Chiude il menu se si clicca fuori
+    // Close menu on outside click
     document.addEventListener('click', () => {
       dropdownMenu.style.display = 'none';
     });
@@ -406,7 +406,7 @@
         chatBox.appendChild(msgDiv);
       });
 
-      // Aggiunge l'evento di ingrandimento solo alle immagini della chat
+      // Add zoom event only to chat images
       document.querySelectorAll('.message-img').forEach(img => {
         img.addEventListener('click', (e) => {
           lightboxImg.src = e.target.src;
@@ -417,7 +417,7 @@
       chatBox.scrollTop = chatBox.scrollHeight;
     }
 
-    // Chiude il lightbox al click ovunque
+    // Close lightbox on click anywhere
     lightbox.addEventListener('click', () => {
       lightbox.style.display = 'none';
       lightboxImg.src = '';
