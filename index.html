@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Solar System Group Chat - COSMIC-S</title>
+  <title>Solar Chat</title>
+  <!-- Icone FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
@@ -20,7 +21,6 @@
       overflow: hidden;
     }
 
-    /* La chat occupa tutta la pagina con lo sfondo a griglia stile taccuino color #F0E8D5 direttamente sotto i fumetti */
     .chat-container {
       width: 100%;
       height: 100vh;
@@ -69,6 +69,61 @@
       flex-shrink: 0;
     }
 
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Menu a tendina per saltare l'animazione */
+    .menu-container {
+      position: relative;
+    }
+
+    .menu-btn {
+      background: none;
+      border: none;
+      color: #F0E8D5;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 35px;
+      background-color: #111111;
+      border: 2px solid #F0E8D5;
+      border-radius: 8px;
+      width: 220px;
+      box-shadow: 3px 3px 0px #F0E8D5;
+      z-index: 100;
+    }
+
+    .dropdown-menu.active {
+      display: block;
+    }
+
+    .dropdown-item {
+      padding: 12px 15px;
+      color: #F0E8D5;
+      font-size: 13px;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(240, 232, 213, 0.2);
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-item:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-item:hover {
+      background-color: rgba(240, 232, 213, 0.1);
+    }
+
     /* Area Messaggi */
     .chat-messages {
       flex: 1;
@@ -86,14 +141,12 @@
       max-width: 85%;
       opacity: 0;
       transform: translateY(10px);
-      animation: fadeIn 0.3s forwards ease-in-out;
+      transition: opacity 0.3s, transform 0.3s;
     }
 
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .message-row.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .message-row.received {
@@ -114,14 +167,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 8px;
-      font-weight: bold;
-      color: #111;
       overflow: hidden;
       flex-shrink: 0;
-      text-align: center;
-      padding: 2px;
-      word-break: break-all;
+    }
+
+    .msg-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .message-content {
@@ -143,7 +196,6 @@
       padding-right: 4px;
     }
 
-    /* Bubble dei messaggi */
     .message-bubble {
       padding: 10px 14px;
       border-radius: 15px;
@@ -167,7 +219,6 @@
       box-shadow: 2px 2px 0px #555555;
     }
 
-    /* Stile per le immagini nei messaggi */
     .message-img {
       max-width: 220px;
       width: 100%;
@@ -187,7 +238,6 @@
     }
     .sent .timestamp { color: #444444; }
 
-    /* Banner Finale e Pulsanti Social */
     .final-banner {
       display: none;
       flex-direction: column;
@@ -195,7 +245,10 @@
       gap: 15px;
       margin-top: 20px;
       padding-bottom: 30px;
-      animation: fadeIn 0.5s forwards;
+    }
+
+    .final-banner.visible {
+      display: flex;
     }
 
     .social-icons {
@@ -242,23 +295,30 @@
 <body>
 
   <div class="chat-container">
+    <!-- Intestazione Chat -->
     <div class="chat-header">
       <div class="user-info">
         <i class="fa-solid fa-chevron-left"></i>
-        <div class="avatar">SUN</div>
+        <div class="avatar">
+          <img src="gruppo.png" alt="Gruppo" onerror="this.style.display='none'; this.parentNode.innerText='SUN';">
+        </div>
         <div>
-          <span style="font-weight: bold; display: block; font-size: 14px;">SOLAR SYSTEM - OFFICIAL GROUP</span>
+          <span style="font-weight: bold; display: block; font-size: 14px;">Solar Chat</span>
           <span style="font-size: 11px; color: #F0E8D5; opacity: 0.7;">Sun, Mercury, Venus, Earth, Mars, Jupiter...</span>
         </div>
       </div>
-      <div>
-        <i class="fa-solid fa-magnifying-glass" style="margin-right: 15px;"></i>
-        <i class="fa-solid fa-bars"></i>
+      <div class="menu-container">
+        <button class="menu-btn" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <div class="dropdown-item" id="instantReadBtn">Visualizza subito tutta la chat</div>
+        </div>
       </div>
     </div>
 
+    <!-- Contenitore Messaggi -->
     <div class="chat-messages" id="chatBox"></div>
 
+    <!-- Banner Finale -->
     <div class="final-banner" id="finalBanner">
       <div class="social-icons">
         <a href="#" class="social-btn"><i class="fa-brands fa-x-twitter"></i></a>
@@ -273,6 +333,10 @@
   </div>
 
   <script>
+    // NOMI DA ASSEGNARE ALLE IMMAGINI DEL PROFILO:
+    // - Immagine profilo del gruppo (in alto a sinistra): "gruppo.png"
+    // - Immagini profilo dei singoli partecipanti:
+    //   "sole.png", "mercurio.png", "venere.png", "terra.png", "marte.png", "giove.png", "saturno.png", "urano.png", "nettuno.png"
     const profileImages = {
       'The Sun [Admin]': 'sole.png',
       'Mercury': 'mercurio.png',
@@ -286,48 +350,64 @@
     };
 
     const messagesData = [
-      { type: 'system', text: 'The Sun added Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune.', time: '12:00', delay: 400 },
-      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: '@everyone SILENCE. Gravity is stable, orbits are circular, no one leaves their track. Good rotation.', time: '12:01', delay: 1400 },
-      { type: 'text', sender: 'received', name: 'Mercury', text: 'GUYS IT\'S HOT. IT\'S HOT IT\'S HOT IT\'S HOT. CAN SOMEONE MOVE ME FURTHER AWAY? PLEASE.', time: '12:02', delay: 2600 },
-      { type: 'text', sender: 'received', name: 'Venus', text: 'Stop crying, Mercury. Look at how gorgeous I look in Earth\'s skies tonight. Bright, elegant, flawless.<br>😛 <i>[Sailor Venus sticker]</i>', time: '12:03', delay: 3800 },
-      { type: 'text', sender: 'sent', name: 'Earth', text: 'Venus, your atmosphere is made of sulfuric acid and the pressure would crush a submarine. Stop acting like a diva.', time: '12:04', delay: 5000 },
-      { type: 'text', sender: 'received', name: 'Mars', text: 'Speaking of parasites... Earth, I got another wheeled robot. They keep digging holes in my desert looking for water. But there is no water! It\'s just dust! I\'ve been saying this for three billion years!', time: '12:05', delay: 6300 },
-      { type: 'image', sender: 'received', name: 'Mars', text: '📷 <i>Curiosity rover chilling in the Martian dust</i>', img: '1000076059.jpg', time: '12:05', delay: 7500 },
-      { type: 'text', sender: 'sent', name: 'Earth', text: 'Don\'t blame me, I don\'t drive them. They do it themselves. Besides, one of them took a sunset photo the other day and it was objectively gorgeous.', time: '12:06', delay: 8800 },
-      { type: 'text', sender: 'received', name: 'Jupiter', text: 'Ahahaha. Look at the cute little rocky planets. You\'re so small I could fit all of you inside my Great Red Spot and still have room for three moons.', time: '12:07', delay: 10100 },
-      { type: 'image', sender: 'received', name: 'Jupiter', text: '🌀 <i>The giant spinning storm in high definition</i>', img: '1000076063.gif', time: '12:07', delay: 11300 },
-      { type: 'text', sender: 'received', name: 'Saturn', text: 'Hey big guy, speak for yourself. Look at my rings. Pure, magnificent, shining ice crystals. Nobody has fashion accessories like mine within ten astronomical units.', time: '12:08', delay: 12600 },
-      { type: 'text', sender: 'received', name: 'Uranus', text: 'Guys... have you ever thought about how we\'re all just spinning in circles around a giant ball of fire for no real reason?', time: '12:09', delay: 13900 },
-      { type: 'text', sender: 'received', name: 'Neptune', text: 'Yeah... and it\'s freezing out here. I can\'t feel my fingers. Oh wait, I don\'t have fingers.', time: '12:10', delay: 15100 },
-      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'Mercury, minus 5 reputation points for the noise. Behave or I\'ll shut down nuclear fusion.<br>🚫 <i>[Black UNO reverse/prohibition card]</i>', time: '12:11', delay: 16500 },
-      { type: 'text', sender: 'sent', name: 'Earth', text: '...does anyone have an aspirin? I think global warming is doing weird things.', time: '12:12', delay: 17800 },
-      { type: 'text', sender: 'received', name: 'Mars', text: 'Serves you right for being so picky with liquid water. Go buy an AC unit.', time: '12:13', delay: 19100 },
-      { type: 'text', sender: 'received', name: 'Jupiter', text: 'Speaking of warming... Earth, your tenants sent another noisy piece of iron out this morning. It flew past Ganymede and made a super annoying beep.', time: '12:14', delay: 20400 },
-      { type: 'text', sender: 'sent', name: 'Earth', text: 'Really? Where is it going?', time: '12:15', delay: 21600 },
-      { type: 'text', sender: 'received', name: 'Jupiter', text: 'Dunno, looks like it\'s leaving the solar system. Say goodbye to your kids, they\'re all grown up and want to explore the universe.', time: '12:16', delay: 22900 },
-      { type: 'text', sender: 'received', name: 'Venus', text: 'So cute, thinking they can go anywhere with that fossil fuel tech. Fools.', time: '12:17', delay: 24200 },
-      { type: 'text', sender: 'received', name: 'Uranus', text: 'By the way, what happened to Pluto? Why does he never write in the chat?', time: '12:18', delay: 25500 },
-      { type: 'text', sender: 'received', name: 'Saturn', text: 'He got kicked out of the group because he didn\'t meet the minimum mass requirements. Now he hangs out at the Kuiper Belt Club drinking frozen methane cocktails with his weird friends.', time: '12:19', delay: 26800 },
-      { type: 'text', sender: 'received', name: 'Neptune', text: 'Ah, so I\'m not the only one ignored at galaxy meetups. Good to know.', time: '12:20', delay: 28000 },
-      { type: 'text', sender: 'received', name: 'Mercury', text: 'Guys, I have a rotation lock. I\'m spinning terribly, I feel so nauseous. Sun, can I take a break? Just one hour of total darkness?', time: '12:21', delay: 29300 },
-      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'Breaks don\'t exist in deep space, Mercury. Keep spinning.', time: '12:22', delay: 30600 },
-      { type: 'text', sender: 'received', name: 'Mars', text: 'Hey Sun, instead of playing UV dictator, did you check if my ice caps grew this year? I\'ve been on a strict solid carbon dioxide diet.', time: '12:23', delay: 31900 },
-      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'I don\'t look at your dust, Mars. I have a nebula to manage three light-years away.', time: '12:24', delay: 33200 },
-      { type: 'image', sender: 'received', name: 'The Sun [Admin]', text: '🌌 <i>Pillars of Creation flex</i>', img: '1000076061.jpg', time: '12:24', delay: 34400 },
-      { type: 'text', sender: 'sent', name: 'Earth', text: 'Guys seriously, there\'s a giant asteroid heading straight for the Pacific. Can someone help me deflect it?', time: '12:25', delay: 35700 },
-      { type: 'text', sender: 'received', name: 'Jupiter', text: 'Don\'t worry Earth, I got it with my gravity. Puff... done. I redirected it toward Venus.', time: '12:26', delay: 37000 },
-      { type: 'text', sender: 'received', name: 'Venus', text: 'WHAT?! ARE YOU INSANE?! IT MISSED ME BY AN INCH! I ALMOST RUINED MY FINISH!', time: '12:27', delay: 38300 },
-      { type: 'text', sender: 'received', name: 'Jupiter', text: 'Oops. My mass slipped. Ahahaha.', time: '12:28', delay: 39500 },
-      { type: 'text', sender: 'received', name: 'Uranus', text: 'Guys, I\'ve been rolling on my side for four billion years and nobody ever tells me "Uranus, get comfortable". You\'re terrible neighbors.', time: '12:29', delay: 40800 },
-      { type: 'text', sender: 'received', name: 'Neptune', text: 'I feel you bro. It\'s so quiet out here I can actually hear my own rings freezing.', time: '12:30', delay: 42100 },
-      { type: 'text', sender: 'sent', name: 'Earth', text: 'Well, I\'m turning off the lights. My humans are sleeping and it\'s dead boring. Tomorrow I might invent another ice age just to spice things up.', time: '12:31', delay: 43400 },
-      { type: 'text', sender: 'received', name: 'Mars', text: 'Let me know if you find a good deal on used rovers. My porch is full of them. Night rocks.', time: '12:32', delay: 44700 }
+      { type: 'system', text: 'The Sun added Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune.', time: '12:00' },
+      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: '@everyone SILENCE. Gravity is stable, orbits are circular, no one leaves their track. Good rotation.', time: '12:01' },
+      { type: 'text', sender: 'received', name: 'Mercury', text: 'GUYS IT\'S HOT. IT\'S HOT IT\'S HOT IT\'S HOT. CAN SOMEONE MOVE ME FURTHER AWAY? PLEASE.', time: '12:02' },
+      { type: 'text', sender: 'received', name: 'Venus', text: 'Stop crying, Mercury. Look at how gorgeous I look in Earth\'s skies tonight. Bright, elegant, flawless.<br>😛 <i>[Sailor Venus sticker]</i>', time: '12:03' },
+      { type: 'text', sender: 'sent', name: 'Earth', text: 'Venus, your atmosphere is made of sulfuric acid and the pressure would crush a submarine. Stop acting like a diva.', time: '12:04' },
+      { type: 'text', sender: 'received', name: 'Mars', text: 'Speaking of parasites... Earth, I got another wheeled robot. They keep digging holes in my desert looking for water. But there is no water! It\'s just dust! I\'ve been saying this for three billion years!', time: '12:05' },
+      { type: 'image', sender: 'received', name: 'Mars', text: '📷 <i>Curiosity rover chilling in the Martian dust</i>', img: '1000076059.jpg', time: '12:05' },
+      { type: 'text', sender: 'sent', name: 'Earth', text: 'Don\'t blame me, I don\'t drive them. They do it themselves. Besides, one of them took a sunset photo the other day and it was objectively gorgeous.', time: '12:06' },
+      { type: 'text', sender: 'received', name: 'Jupiter', text: 'Ahahaha. Look at the cute little rocky planets. You\'re so small I could fit all of you inside my Great Red Spot and still have room for three moons.', time: '12:07' },
+      { type: 'image', sender: 'received', name: 'Jupiter', text: '🌀 <i>The giant spinning storm in high definition</i>', img: '1000076063.gif', time: '12:07' },
+      { type: 'text', sender: 'received', name: 'Saturn', text: 'Hey big guy, speak for yourself. Look at my rings. Pure, magnificent, shining ice crystals. Nobody has fashion accessories like mine within ten astronomical units.', time: '12:08' },
+      { type: 'text', sender: 'received', name: 'Uranus', text: 'Guys... have you ever thought about how we\'re all just spinning in circles around a giant ball of fire for no real reason?', time: '12:09' },
+      { type: 'text', sender: 'received', name: 'Neptune', text: 'Yeah... and it\'s freezing out here. I can\'t feel my fingers. Oh wait, I don\'t have fingers.', time: '12:10' },
+      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'Mercury, minus 5 reputation points for the noise. Behave or I\'ll shut down nuclear fusion.<br>🚫 <i>[Black UNO reverse/prohibition card]</i>', time: '12:11' },
+      { type: 'text', sender: 'sent', name: 'Earth', text: '...does anyone have an aspirin? I think global warming is doing weird things.', time: '12:12' },
+      { type: 'text', sender: 'received', name: 'Mars', text: 'Serves you right for being so picky with liquid water. Go buy an AC unit.', time: '12:13' },
+      { type: 'text', sender: 'received', name: 'Jupiter', text: 'Speaking of warming... Earth, your tenants sent another noisy piece of iron out this morning. It flew past Ganymede and made a super annoying beep.', time: '12:14' },
+      { type: 'text', sender: 'sent', name: 'Earth', text: 'Really? Where is it going?', time: '12:15' },
+      { type: 'text', sender: 'received', name: 'Jupiter', text: 'Dunno, looks like it\'s leaving the solar system. Say goodbye to your kids, they\'re all grown up and want to explore the universe.', time: '12:16' },
+      { type: 'text', sender: 'received', name: 'Venus', text: 'So cute, thinking they can go anywhere with that fossil fuel tech. Fools.', time: '12:17' },
+      { type: 'text', sender: 'received', name: 'Uranus', text: 'By the way, what happened to Pluto? Why does he never write in the chat?', time: '12:18' },
+      { type: 'text', sender: 'received', name: 'Saturn', text: 'He got kicked out of the group because he didn\'t meet the minimum mass requirements. Now he hangs out at the Kuiper Belt Club drinking frozen methane cocktails with his weird friends.', time: '12:19' },
+      { type: 'text', sender: 'received', name: 'Neptune', text: 'Ah, so I\'m not the only one ignored at galaxy meetups. Good to know.', time: '12:20' },
+      { type: 'text', sender: 'received', name: 'Mercury', text: 'Guys, I have a rotation lock. I\'m spinning terribly, I feel so nauseous. Sun, can I take a break? Just one hour of total darkness?', time: '12:21' },
+      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'Breaks don\'t exist in deep space, Mercury. Keep spinning.', time: '12:22' },
+      { type: 'text', sender: 'received', name: 'Mars', text: 'Hey Sun, instead of playing UV dictator, did you check if my ice caps grew this year? I\'ve been on a strict solid carbon dioxide diet.', time: '12:23' },
+      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'I don\'t look at your dust, Mars. I have a nebula to manage three light-years away.', time: '12:24' },
+      { type: 'image', sender: 'received', name: 'The Sun [Admin]', text: '🌌 <i>Pillars of Creation flex</i>', img: '1000076061.jpg', time: '12:24' },
+      { type: 'text', sender: 'sent', name: 'Earth', text: 'Guys seriously, there\'s a giant asteroid heading straight for the Pacific. Can someone help me deflect it?', time: '12:25' },
+      { type: 'text', sender: 'received', name: 'Jupiter', text: 'Don\'t worry Earth, I got it with my gravity. Puff... done. I redirected it toward Venus.', time: '12:26' },
+      { type: 'text', sender: 'received', name: 'Venus', text: 'WHAT?! ARE YOU INSANE?! IT MISSED ME BY AN INCH! I ALMOST RUINED MY FINISH!', time: '12:27' },
+      { type: 'text', sender: 'received', name: 'Jupiter', text: 'Oops. My mass slipped. Ahahaha.', time: '12:28' },
+      { type: 'text', sender: 'received', name: 'Uranus', text: 'Guys, I\'ve been rolling on my side for four billion years and nobody ever tells me "Uranus, get comfortable". You\'re terrible neighbors.', time: '12:29' },
+      { type: 'text', sender: 'received', name: 'Neptune', text: 'I feel you bro. It\'s so quiet out here I can actually hear my own rings freezing.', time: '12:30' },
+      { type: 'text', sender: 'sent', name: 'Earth', text: 'Well, I\'m turning off the lights. My humans are sleeping and it\'s dead boring. Tomorrow I might invent another ice age just to spice things up.', time: '12:31' },
+      { type: 'text', sender: 'received', name: 'Mars', text: 'Let me know if you find a good deal on used rovers. My porch is full of them. Night rocks.', time: '12:32' }
     ];
 
     const chatBox = document.getElementById('chatBox');
     const finalBanner = document.getElementById('finalBanner');
+    const menuToggle = document.getElementById('menuToggle');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+    const instantReadBtn = document.getElementById('instantReadBtn');
 
-    function addMessage(msg) {
+    let animationTimeouts = [];
+    let isFullyLoaded = false;
+
+    // Gestione apertura menu a tendina
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdownMenu.classList.toggle('active');
+    });
+
+    document.addEventListener('click', () => {
+      dropdownMenu.classList.remove('active');
+    });
+
+    function createMessageElement(msg) {
       const msgDiv = document.createElement('div');
       
       if (msg.type === 'system') {
@@ -341,7 +421,7 @@
         msgDiv.innerHTML = `<i>${msg.text}</i>`;
       } else {
         msgDiv.classList.add('message-row', msg.sender);
-        let pngName = profileImages[msg.name] || 'planet.png';
+        let imgFileName = profileImages[msg.name] || 'planet.png';
 
         let innerContent = `<div>${msg.text}</div>`;
         if (msg.type === 'image') {
@@ -349,7 +429,9 @@
         }
 
         msgDiv.innerHTML = `
-          <div class="msg-avatar">${pngName}</div>
+          <div class="msg-avatar">
+            <img src="${imgFileName}" alt="${msg.name}" onerror="this.style.display='none'; this.parentNode.innerText='${msg.name.substring(0,3).toUpperCase()}';">
+          </div>
           <div class="message-content">
             <div class="sender-name">${msg.name}</div>
             <div class="message-bubble">
@@ -359,22 +441,64 @@
           </div>
         `;
       }
-
-      chatBox.appendChild(msgDiv);
-      chatBox.scrollTop = chatBox.scrollHeight;
+      return msgDiv;
     }
 
-    messagesData.forEach((msg, index) => {
-      setTimeout(() => {
-        addMessage(msg);
-        if (index === messagesData.length - 1) {
-          setTimeout(() => {
-            finalBanner.style.display = 'flex';
-            chatBox.scrollTop = chatBox.scrollHeight;
-          }, 1500);
-        }
-      }, msg.delay);
+    // Funzione per caricare la chat progressivamente
+    function startProgressiveLoading() {
+      chatBox.innerHTML = '';
+      finalBanner.classList.remove('visible');
+      animationTimeouts.forEach(t => clearTimeout(t));
+      animationTimeouts = [];
+      isFullyLoaded = false;
+
+      let delays = [
+        400, 1400, 2600, 3800, 5000, 6300, 7500, 8800, 10100, 11300, 
+        12600, 13900, 15100, 16500, 17800, 19100, 20400, 21600, 22900, 
+        24200, 25500, 26800, 28000, 29300, 30600, 31900, 33200, 34400, 
+        35700, 37000, 38300, 39500, 40800, 42100, 43400, 44700
+      ];
+
+      messagesData.forEach((msg, index) => {
+        let msgDiv = createMessageElement(msg);
+        chatBox.appendChild(msgDiv);
+
+        let t = setTimeout(() => {
+          msgDiv.classList.add('visible');
+          chatBox.scrollTop = chatBox.scrollHeight;
+        }, delays[index] || (index * 1200));
+        
+        animationTimeouts.push(t);
+      });
+
+      let finalT = setTimeout(() => {
+        finalBanner.classList.add('visible');
+        chatBox.scrollTop = chatBox.scrollHeight;
+        isFullyLoaded = true;
+      }, 46000);
+      animationTimeouts.push(finalT);
+    }
+
+    // Funzione per mostrare subito tutta la chat (spegne l'effetto animato)
+    instantReadBtn.addEventListener('click', () => {
+      animationTimeouts.forEach(t => clearTimeout(t));
+      animationTimeouts = [];
+      chatBox.innerHTML = '';
+
+      messagesData.forEach((msg) => {
+        let msgDiv = createMessageElement(msg);
+        msgDiv.classList.add('visible');
+        chatBox.appendChild(msgDiv);
+      });
+
+      finalBanner.classList.add('visible');
+      chatBox.scrollTop = chatBox.scrollHeight;
+      isFullyLoaded = true;
     });
+
+    // Avvio automatico all'apertura della pagina
+    startProgressiveLoading();
   </script>
 </body>
 </html>
+
