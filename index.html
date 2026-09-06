@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Solar Chat</title>
-  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
@@ -243,12 +242,11 @@
 <body>
 
   <div class="chat-container">
-    <!-- Chat Header -->
     <div class="chat-header">
       <div class="user-info">
         <i class="fa-solid fa-chevron-left"></i>
         <div class="avatar">
-          <img src="gruppo.png" alt="Group" onerror="this.style.display='none'; this.parentNode.innerText='SUN';">
+          <img src="gruppo-pianeti.png" alt="Group" onerror="this.style.display='none'; this.parentNode.innerText='SUN';">
         </div>
         <div>
           <span style="font-weight: bold; display: block; font-size: 14px;">Solar Chat</span>
@@ -263,7 +261,6 @@
       </div>
     </div>
 
-    <!-- Messages Container -->
     <div class="chat-messages" id="chatBox"></div>
   </div>
 
@@ -282,19 +279,19 @@
 
     const messagesData = [
       { type: 'system', text: 'The Sun added Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune.', time: '12:00' },
-      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: '@everyone SILENCE. Gravity is stable, orbits are circular, no one leaves their track. Good rotation.', time: '12:01' },
+      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: '@everyone SILENCE. Gravity is stable, orbits are circular, no one leaves their track. Good rotation.<br><img src="galassie-lontane.png" alt="Galaxies" class="message-img">', time: '12:01' },
       { type: 'text', sender: 'received', name: 'Mercury', text: 'GUYS IT\'S HOT. IT\'S HOT IT\'S HOT IT\'S HOT. CAN SOMEONE MOVE ME FURTHER AWAY? PLEASE.', time: '12:02' },
       { type: 'text', sender: 'received', name: 'Venus', text: 'Stop crying, Mercury. Look at how gorgeous I look in Earth\'s skies tonight. Bright, elegant, flawless.<br><i>[Sailor Venus sticker]</i>', time: '12:03' },
       { type: 'text', sender: 'sent', name: 'Earth', text: 'Venus, your atmosphere is made of sulfuric acid and the pressure would crush a submarine. Stop acting like a diva.', time: '12:04' },
       { type: 'text', sender: 'received', name: 'Mars', text: 'Speaking of parasites... Earth, I got another wheeled robot. They keep digging holes in my desert looking for water. But there is no water! It\'s just dust! I\'ve been saying this for three billion years!', time: '12:05' },
-      { type: 'image', sender: 'received', name: 'Mars', text: '<i>Curiosity rover chilling in the Martian dust</i>', img: '1000076059.jpg', time: '12:05' },
+      { type: 'image', sender: 'received', name: 'Mars', text: '<i>Curiosity rover chilling in the Martian dust</i>', img: 'rover-marte.png', time: '12:05' },
       { type: 'text', sender: 'sent', name: 'Earth', text: 'Don\'t blame me, I don\'t drive them. They do it themselves. Besides, one of them took a sunset photo the other day and it was objectively gorgeous.', time: '12:06' },
       { type: 'text', sender: 'received', name: 'Jupiter', text: 'Ahahaha. Look at the cute little rocky planets. You\'re so small I could fit all of you inside my Great Red Spot and still have room for three moons.', time: '12:07' },
-      { type: 'image', sender: 'received', name: 'Jupiter', text: '<i>The giant spinning storm in high definition</i>', img: '1000076063.gif', time: '12:07' },
+      { type: 'image', sender: 'received', name: 'Jupiter', text: '<i>The giant spinning storm in high definition</i>', img: 'tempesta-giove.gif', time: '12:07' },
       { type: 'text', sender: 'received', name: 'Saturn', text: 'Hey big guy, speak for yourself. Look at my rings. Pure, magnificent, shining ice crystals. Nobody has fashion accessories like mine within ten astronomical units.', time: '12:08' },
       { type: 'text', sender: 'received', name: 'Uranus', text: 'Guys... have you ever thought about how we\'re all just spinning in circles around a giant ball of fire for no real reason?', time: '12:09' },
       { type: 'text', sender: 'received', name: 'Neptune', text: 'Yeah... and it\'s freezing out here. I can\'t feel my fingers. Oh wait, I don\'t have fingers.', time: '12:10' },
-      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'Mercury, minus 5 reputation points for the noise. Behave or I\'ll shut down nuclear fusion.<br><i>[Black prohibition card]</i>', time: '12:11' },
+      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'Mercury, minus 5 reputation points for the noise. Behave or I\'ll shut down nuclear fusion.<br><img src="carta-nera.png" alt="Uno Card" class="message-img">', time: '12:11' },
       { type: 'text', sender: 'sent', name: 'Earth', text: '...does anyone have an aspirin? I think global warming is doing weird things.', time: '12:12' },
       { type: 'text', sender: 'received', name: 'Mars', text: 'Serves you right for being so picky with liquid water. Go buy an AC unit.', time: '12:13' },
       { type: 'text', sender: 'received', name: 'Jupiter', text: 'Speaking of warming... Earth, your tenants sent another noisy piece of iron out this morning. It flew past Ganymede and made a super annoying beep.', time: '12:14' },
@@ -308,7 +305,7 @@
       { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'Breaks don\'t exist in deep space, Mercury. Keep spinning.', time: '12:22' },
       { type: 'text', sender: 'received', name: 'Mars', text: 'Hey Sun, instead of playing UV dictator, did you check if my ice caps grew this year? I\'ve been on a strict solid carbon dioxide diet.', time: '12:23' },
       { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'I don\'t look at your dust, Mars. I have a nebula to manage three light-years away.', time: '12:24' },
-      { type: 'image', sender: 'received', name: 'The Sun [Admin]', text: '<i>Pillars of Creation flex</i>', img: '1000076061.jpg', time: '12:24' },
+      { type: 'image', sender: 'received', name: 'The Sun [Admin]', text: '<i>Pillars of Creation flex</i>', img: 'pilastri-creazione.png', time: '12:24' },
       { type: 'text', sender: 'sent', name: 'Earth', text: 'Guys seriously, there\'s a giant asteroid heading straight for the Pacific. Can someone help me deflect it?', time: '12:25' },
       { type: 'text', sender: 'received', name: 'Jupiter', text: 'Don\'t worry Earth, I got it with my gravity. Puff... done. I redirected it toward Venus.', time: '12:26' },
       { type: 'text', sender: 'received', name: 'Venus', text: 'WHAT?! ARE YOU INSANE?! IT MISSED ME BY AN INCH! I ALMOST RUINED MY FINISH!', time: '12:27' },
@@ -423,4 +420,3 @@
   </script>
 </body>
 </html>
-
