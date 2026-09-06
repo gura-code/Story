@@ -128,12 +128,11 @@
     /* Messages Area */
     .chat-messages {
       flex: 1;
-      padding: 20px 20px 60px 20px;
+      padding: 20px 20px 80px 20px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 14px;
-      scroll-behavior: smooth;
     }
 
     .message-row {
@@ -390,14 +389,15 @@
         chatBox.appendChild(msgDiv);
 
         let t = setTimeout(() => {
-          // Controlla se l'utente era già in fondo prima di far comparire il messaggio
-          let isAtBottom = (chatBox.scrollHeight - chatBox.scrollTop - chatBox.clientHeight) < 120;
+          let isAtBottom = (chatBox.scrollHeight - chatBox.scrollTop - chatBox.clientHeight) < 180;
           
           msgDiv.classList.add('visible');
 
-          // Scorre verso il basso solo se l'utente stava seguendo la chat in fondo
           if (isAtBottom) {
-            chatBox.scrollTop = chatBox.scrollHeight;
+            chatBox.scrollTo({
+              top: chatBox.scrollHeight,
+              behavior: 'smooth'
+            });
           }
         }, delays[index] || (index * 1200));
         
@@ -423,3 +423,4 @@
   </script>
 </body>
 </html>
+
