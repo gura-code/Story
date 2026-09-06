@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chat Gruppo - Sistema Solare</title>
+  <!-- Icone FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
@@ -16,11 +17,11 @@
     html, body {
       width: 100%;
       height: 100%;
-      /* Sfondo a quadretti in stile taccuino di scuola ma con colori invertiti: sfondo nero e righe bianche */
+      /* Sfondo a quadretti nero con righe color #F0E8D5 sfumato */
       background-color: #000000;
       background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+        linear-gradient(rgba(240, 232, 213, 0.18) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(240, 232, 213, 0.18) 1px, transparent 1px);
       background-size: 20px 20px;
       overflow-x: hidden;
     }
@@ -32,17 +33,17 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      background-color: rgba(0, 0, 0, 0.85);
+      background-color: rgba(0, 0, 0, 0.9);
       position: relative;
-      border-left: 2px solid #ffffff;
-      border-right: 2px solid #ffffff;
-      box-shadow: 4px 0px 15px rgba(255,255,255,0.1);
+      border-left: 2px solid #F0E8D5;
+      border-right: 2px solid #F0E8D5;
+      box-shadow: 4px 0px 15px rgba(240, 232, 213, 0.15);
     }
 
-    /* Intestazione Chat (Stile Nero/Bianco) */
+    /* Intestazione Chat */
     .chat-header {
       background-color: #111111;
-      color: white;
+      color: #F0E8D5;
       padding: 15px;
       display: flex;
       align-items: center;
@@ -50,7 +51,7 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      border-bottom: 2px solid #ffffff;
+      border-bottom: 2px solid #F0E8D5;
     }
 
     .user-info {
@@ -63,13 +64,13 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background-color: #ffffff;
+      background-color: #F0E8D5;
       color: #111111;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: bold;
-      border: 2px solid #ffffff;
+      border: 2px solid #F0E8D5;
       overflow: hidden;
       flex-shrink: 0;
     }
@@ -114,8 +115,8 @@
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      background: #ffffff;
-      border: 2px solid #ffffff;
+      background: #F0E8D5;
+      border: 2px solid #F0E8D5;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -137,9 +138,10 @@
     .sender-name {
       font-size: 11px;
       font-weight: bold;
-      color: #cccccc;
+      color: #F0E8D5;
       margin-bottom: 3px;
       padding-left: 4px;
+      opacity: 0.85;
     }
 
     .sent .sender-name {
@@ -154,30 +156,30 @@
       font-size: 15px;
       line-height: 1.4;
       position: relative;
-      border: 2px solid #ffffff;
+      border: 2px solid #F0E8D5;
     }
 
     .received .message-bubble {
       background-color: #111111;
-      color: #ffffff;
+      color: #F0E8D5;
       border-bottom-left-radius: 2px;
-      box-shadow: 2px 2px 0px #ffffff;
+      box-shadow: 2px 2px 0px #F0E8D5;
     }
 
     .sent .message-bubble {
-      background-color: #ffffff;
-      color: #000000;
+      background-color: #F0E8D5;
+      color: #111111;
       border-bottom-right-radius: 2px;
-      box-shadow: 2px 2px 0px #888888;
+      box-shadow: 2px 2px 0px #555555;
     }
 
     .timestamp {
       font-size: 10px;
-      color: #aaaaaa;
+      color: #cccccc;
       margin-top: 4px;
       text-align: right;
     }
-    .sent .timestamp { color: #555555; }
+    .sent .timestamp { color: #444444; }
 
     /* Banner Finale e Pulsanti Social */
     .final-banner {
@@ -200,32 +202,32 @@
       height: 45px;
       border-radius: 50%;
       background: #111;
-      border: 2px solid #ffffff;
+      border: 2px solid #F0E8D5;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #ffffff;
+      color: #F0E8D5;
       text-decoration: none;
       font-size: 18px;
-      box-shadow: 2px 2px 0px #ffffff;
+      box-shadow: 2px 2px 0px #F0E8D5;
     }
 
     .card-banner {
       background: #111111;
-      color: #ffffff;
-      border: 2px solid #ffffff;
+      color: #F0E8D5;
+      border: 2px solid #F0E8D5;
       border-radius: 12px;
       padding: 15px;
       width: 90%;
       text-align: center;
-      box-shadow: 3px 3px 0px #ffffff;
+      box-shadow: 3px 3px 0px #F0E8D5;
     }
 
     .card-banner a {
       display: block;
       margin-top: 10px;
       font-weight: bold;
-      color: #ffffff;
+      color: #F0E8D5;
       text-decoration: none;
     }
   </style>
@@ -233,13 +235,14 @@
 <body>
 
   <div class="chat-container">
+    <!-- Intestazione Chat di Gruppo -->
     <div class="chat-header">
       <div class="user-info">
         <i class="fa-solid fa-chevron-left"></i>
         <div class="avatar">SUN</div>
         <div>
           <span style="font-weight: bold; display: block; font-size: 14px;">IL SISTEMA SOLARE - GRUPPO UFFICIALE</span>
-          <span style="font-size: 11px; color: #aaa;">Sole, Mercurio, Venere, Terra, Marte, Giove...</span>
+          <span style="font-size: 11px; color: #F0E8D5; opacity: 0.7;">Sole, Mercurio, Venere, Terra, Marte, Giove...</span>
         </div>
       </div>
       <div>
@@ -248,8 +251,10 @@
       </div>
     </div>
 
+    <!-- Contenitore Messaggi -->
     <div class="chat-messages" id="chatBox"></div>
 
+    <!-- Banner Finale -->
     <div class="final-banner" id="finalBanner">
       <div class="social-icons">
         <a href="#" class="social-btn"><i class="fa-brands fa-x-twitter"></i></a>
@@ -264,7 +269,6 @@
   </div>
 
   <script>
-    // Nomi dei file .png impostati come richiesto per le foto profilo
     const profileImages = {
       'Il Sole [Admin]': 'sole.png',
       'Mercurio': 'mercurio.png',
@@ -325,13 +329,13 @@
       if (msg.type === 'system') {
         msgDiv.style.textAlign = 'center';
         msgDiv.style.fontSize = '12px';
-        msgDiv.style.color = '#aaaaaa';
+        msgDiv.style.color = '#F0E8D5';
+        msgDiv.style.opacity = '0.7';
         msgDiv.style.margin = '8px 0';
         msgDiv.style.width = '100%';
         msgDiv.innerHTML = `<i>${msg.text}</i>`;
       } else {
         msgDiv.classList.add('message-row', msg.sender);
-        
         let pngName = profileImages[msg.name] || 'pianeta.png';
 
         msgDiv.innerHTML = `
@@ -353,7 +357,6 @@
     messagesData.forEach((msg, index) => {
       setTimeout(() => {
         addMessage(msg);
-        
         if (index === messagesData.length - 1) {
           setTimeout(() => {
             finalBanner.style.display = 'flex';
