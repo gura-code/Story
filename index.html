@@ -76,7 +76,6 @@
       object-fit: cover;
     }
 
-    /* Dropdown Menu - Disabilitato */
     .menu-container {
       position: relative;
     }
@@ -94,7 +93,7 @@
       display: none;
     }
 
-    /* Messages Area con spazio abbondante alla fine */
+    /* Messages Area con ampio spazio in fondo */
     .chat-messages {
       flex: 1;
       padding: 20px 20px 140px 20px;
@@ -181,15 +180,22 @@
       box-shadow: 2px 2px 0px #555555;
     }
 
+    /* Stile per evitare il doppio riquadro alle immagini */
+    .image-bubble {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+    }
+
     .message-img {
-      max-width: 220px;
+      max-width: 240px;
       width: 100%;
       height: auto;
-      border-radius: 8px;
+      border-radius: 12px;
       border: 2px solid #F0E8D5;
-      margin-top: 6px;
       display: block;
-      box-shadow: 2px 2px 0px #000;
+      box-shadow: 3px 3px 0px #F0E8D5;
     }
   </style>
 </head>
@@ -239,16 +245,16 @@
       { type: 'text', sender: 'received', name: 'Venus', text: 'Stop crying, Mercury. Look at how gorgeous I look in Earth\'s skies tonight. Bright, elegant, flawless.' },
       { type: 'text', sender: 'sent', name: 'Earth', text: 'Venus, your atmosphere is made of sulfuric acid and the pressure would crush a submarine. Stop acting like a diva.' },
       { type: 'text', sender: 'received', name: 'Mars', text: 'Speaking of parasites... Earth, I got another wheeled robot. They keep digging holes in my desert looking for water. But there is no water! It\'s just dust! I\'ve been saying this for three billion years!' },
-      { type: 'image', sender: 'received', name: 'Mars', text: '', img: 'https://upload.wikimedia.org/wikipedia/commons/b/bd/Curiosity_Self-Portrait_at_%27Big_Sky%27_Drilling_Site.jpg' },
+      { type: 'image', sender: 'received', name: 'Mars', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Curiosity_Self-Portrait_at_%27Big_Sky%27_Drilling_Site.jpg/1280px-Curiosity_Self-Portrait_at_%27Big_Sky%27_Drilling_Site.jpg?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail' },
       { type: 'text', sender: 'sent', name: 'Earth', text: 'Don\'t blame me, I don\'t drive them. They do it themselves. Besides, one of them took a sunset photo the other day and it was objectively gorgeous.' },
       { type: 'text', sender: 'received', name: 'Jupiter', text: 'Ahahaha. Look at the cute little rocky planets. You\'re so small I could fit all of you inside my Great Red Spot and still have room for three moons.' },
-      { type: 'image', sender: 'received', name: 'Jupiter', text: '', img: './tempesta-giove.gif' },
+      { type: 'image', sender: 'received', name: 'Jupiter', img: './tempesta-giove.gif' },
       { type: 'text', sender: 'received', name: 'Saturn', text: 'Hey big guy, speak for yourself. Look at my rings. Pure, magnificent, shining ice crystals. Nobody has fashion accessories like mine within ten astronomical units.' },
       { type: 'text', sender: 'received', name: 'Uranus', text: 'Guys... have you ever thought about how we\'re all just spinning in circles around a giant ball of fire for no real reason?' },
       { type: 'text', sender: 'received', name: 'Neptune', text: 'Yeah... and it\'s freezing out here. Look out there into the deep universe, it\'s totally insane.' },
-      { type: 'image', sender: 'received', name: 'Neptune', text: '', img: 'https://assets.science.nasa.gov/dynamicimage/assets/science/missions/webb/science/2022/07/STScI-01G8H1K2BCNATEZSKVRN9Z69SR.png?w=1176&h=1200&fit=crop&crop=faces%2Cfocalpoint' },
+      { type: 'image', sender: 'received', name: 'Neptune', img: 'https://assets.science.nasa.gov/dynamicimage/assets/science/missions/webb/science/2022/07/STScI-01G8H1K2BCNATEZSKVRN9Z69SR.png?w=1176&h=1200&fit=crop&crop=faces%2Cfocalpoint' },
       { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'Mercury, minus 5 reputation points for the noise. Behave or I\'ll shut down nuclear fusion.' },
-      { type: 'image', sender: 'received', name: 'The Sun [Admin]', text: '', img: './carta-nera.png' },
+      { type: 'image', sender: 'received', name: 'The Sun [Admin]', img: './carta-nera.png' },
       { type: 'text', sender: 'sent', name: 'Earth', text: '...does anyone have an aspirin? I think global warming is doing weird things.' },
       { type: 'text', sender: 'received', name: 'Mars', text: 'Serves you right for being so picky with liquid water. Go buy an AC unit.' },
       { type: 'text', sender: 'received', name: 'Jupiter', text: 'Speaking of warming... Earth, your tenants sent another noisy piece of iron out this morning. It flew past Ganymede and made a super annoying beep.' },
@@ -262,7 +268,7 @@
       { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'Breaks don\'t exist in deep space, Mercury. Keep spinning.' },
       { type: 'text', sender: 'received', name: 'Mars', text: 'Hey Sun, instead of playing UV dictator, did you check if my ice caps grew this year? I\'ve been on a strict solid carbon dioxide diet.' },
       { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'I don\'t look at your dust, Mars. I have a nebula to manage three light-years away.' },
-      { type: 'image', sender: 'received', name: 'The Sun [Admin]', text: '', img: './pilastri-creazione.png' },
+      { type: 'image', sender: 'received', name: 'The Sun [Admin]', img: './pilastri-creazione.png' },
       { type: 'text', sender: 'sent', name: 'Earth', text: 'Guys seriously, there\'s a giant asteroid heading straight for the Pacific. Can someone help me deflect it?' },
       { type: 'text', sender: 'received', name: 'Jupiter', text: 'Don\'t worry Earth, I got it with my gravity. Puff... done. I redirected it toward Venus.' },
       { type: 'text', sender: 'received', name: 'Venus', text: 'WHAT?! ARE YOU INSANE?! IT MISSED ME BY AN INCH! I ALMOST RUINED MY FINISH!' },
@@ -293,12 +299,14 @@
           msgDiv.classList.add('message-row', msg.sender);
           let imgFileName = profileImages[msg.name] || './planet.png';
 
+          let bubbleClass = 'message-bubble';
           let innerContent = '';
-          if (msg.text) {
-            innerContent += `<div>${msg.text}</div>`;
-          }
+
           if (msg.type === 'image') {
-            innerContent += `<img src="${msg.img}" alt="Chat Image" class="message-img" onerror="this.src='https://via.placeholder.com/220x140/111/F0E8D5?text=Image';">`;
+            bubbleClass += ' image-bubble';
+            innerContent = `<img src="${msg.img}" alt="Chat Image" class="message-img" onerror="this.src='https://via.placeholder.com/220x140/111/F0E8D5?text=Image';">`;
+          } else {
+            innerContent = `<div>${msg.text}</div>`;
           }
 
           msgDiv.innerHTML = `
@@ -307,7 +315,7 @@
             </div>
             <div class="message-content">
               <div class="sender-name">${msg.name}</div>
-              <div class="message-bubble">
+              <div class="${bubbleClass}">
                 ${innerContent}
               </div>
             </div>
