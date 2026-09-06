@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Solar Chat</title>
-  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
@@ -295,7 +294,6 @@
 <body>
 
   <div class="chat-container">
-    <!-- Chat Header -->
     <div class="chat-header">
       <div class="user-info">
         <i class="fa-solid fa-chevron-left"></i>
@@ -315,10 +313,8 @@
       </div>
     </div>
 
-    <!-- Messages Container -->
     <div class="chat-messages" id="chatBox"></div>
 
-    <!-- Final Banner -->
     <div class="final-banner" id="finalBanner">
       <div class="social-icons">
         <a href="#" class="social-btn"><i class="fa-brands fa-x-twitter"></i></a>
@@ -487,6 +483,7 @@
       chatBox.scrollTop = chatBox.scrollHeight;
     });
 
+    // Automatically start the animation loop when the page loads
     startProgressiveLoading();
   </script>
 </body>
