@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat Gruppo - Sistema Solare</title>
-  <!-- Icone FontAwesome -->
+  <title>Solar System Group Chat - COSMIC-S</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
@@ -21,7 +20,7 @@
       overflow: hidden;
     }
 
-    /* La chat ora occupa l'intera pagina e contiene direttamente lo sfondo a quadretti color #F0E8D5 */
+    /* La chat occupa tutta la pagina con lo sfondo a griglia stile taccuino color #F0E8D5 direttamente sotto i fumetti */
     .chat-container {
       width: 100%;
       height: 100vh;
@@ -70,7 +69,7 @@
       flex-shrink: 0;
     }
 
-    /* Area Messaggi con sfondo a griglia immediatamente visibile dietro ai fumetti */
+    /* Area Messaggi */
     .chat-messages {
       flex: 1;
       padding: 20px;
@@ -168,6 +167,18 @@
       box-shadow: 2px 2px 0px #555555;
     }
 
+    /* Stile per le immagini nei messaggi */
+    .message-img {
+      max-width: 220px;
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 2px solid #F0E8D5;
+      margin-top: 6px;
+      display: block;
+      box-shadow: 2px 2px 0px #000;
+    }
+
     .timestamp {
       font-size: 10px;
       color: #cccccc;
@@ -231,14 +242,13 @@
 <body>
 
   <div class="chat-container">
-    <!-- Intestazione Chat di Gruppo -->
     <div class="chat-header">
       <div class="user-info">
         <i class="fa-solid fa-chevron-left"></i>
         <div class="avatar">SUN</div>
         <div>
-          <span style="font-weight: bold; display: block; font-size: 14px;">IL SISTEMA SOLARE - GRUPPO UFFICIALE</span>
-          <span style="font-size: 11px; color: #F0E8D5; opacity: 0.7;">Sole, Mercurio, Venere, Terra, Marte, Giove...</span>
+          <span style="font-weight: bold; display: block; font-size: 14px;">SOLAR SYSTEM - OFFICIAL GROUP</span>
+          <span style="font-size: 11px; color: #F0E8D5; opacity: 0.7;">Sun, Mercury, Venus, Earth, Mars, Jupiter...</span>
         </div>
       </div>
       <div>
@@ -247,10 +257,8 @@
       </div>
     </div>
 
-    <!-- Contenitore Messaggi -->
     <div class="chat-messages" id="chatBox"></div>
 
-    <!-- Banner Finale -->
     <div class="final-banner" id="finalBanner">
       <div class="social-icons">
         <a href="#" class="social-btn"><i class="fa-brands fa-x-twitter"></i></a>
@@ -258,62 +266,62 @@
         <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
       </div>
       <div class="card-banner">
-        <p><i>"Esplora l'universo e scopri la storia dei pianeti..."</i></p>
-        <a href="#">Torna al taccuino COSMIC-S &rarr;</a>
+        <p><i>"Explore the universe and discover the story of the planets..."</i></p>
+        <a href="#">Back to COSMIC-S Notebook &rarr;</a>
       </div>
     </div>
   </div>
 
   <script>
     const profileImages = {
-      'Il Sole [Admin]': 'sole.png',
-      'Mercurio': 'mercurio.png',
-      'Venere': 'venere.png',
-      'Terra': 'terra.png',
-      'Marte': 'marte.png',
-      'Giove': 'giove.png',
-      'Saturno': 'saturno.png',
-      'Urano': 'urano.png',
-      'Nettuno': 'nettuno.png',
-      'Sistema': 'sistema.png'
+      'The Sun [Admin]': 'sole.png',
+      'Mercury': 'mercurio.png',
+      'Venus': 'venere.png',
+      'Earth': 'terra.png',
+      'Mars': 'marte.png',
+      'Jupiter': 'giove.png',
+      'Saturn': 'saturno.png',
+      'Uranus': 'urano.png',
+      'Neptune': 'nettuno.png'
     };
 
     const messagesData = [
-      { type: 'system', text: 'Il Sole ha aggiunto Mercurio, Venere, Terra, Marte, Giove, Saturno, Urano, Nettuno.', time: '12:00', delay: 500 },
-      { type: 'text', sender: 'received', name: 'Il Sole [Admin]', text: '@tutti SILENZIO. La gravità è stabile, le orbite sono circolari, nessuno deve uscire dal tracciato. Buona rotazione.', time: '12:01', delay: 1500 },
-      { type: 'text', sender: 'received', name: 'Mercurio', text: 'RAGAZZI HO CALDO. HO CALDO HO CALDO HO CALDO. QUALCUNO MI SPOSTA PIÙ IN LÀ? VI PREGO.', time: '12:02', delay: 3000 },
-      { type: 'text', sender: 'received', name: 'Venere', text: 'Smettila di piangere, Mercurio. Piuttosto, guardate quanto sono splendida stasera nei cieli della Terra. Lucente, elegante, perfetta.', time: '12:03', delay: 4500 },
-      { type: 'text', sender: 'sent', name: 'Terra', text: 'Venere, hai un\'atmosfera fatta di acido solforico e una pressione che schiaccerebbe un sottomarino. Fai meno la diva.', time: '12:04', delay: 6000 },
-      { type: 'text', sender: 'received', name: 'Venere', text: 'Invidia acida, Terra. Almeno io non ho parassiti intelligenti che mi camminano sulla crosta e mi riempiono di lattine di Coca-Cola vuote.', time: '12:05', delay: 7500 },
-      { type: 'text', sender: 'received', name: 'Marte', text: 'A proposito di parassiti... Terra, mi è arrivato l\'ennesimo robottino con le ruote. Continuano a scavare buche nel mio deserto alla ricerca di acqua. Ma se non c\'è acqua! È polvere! Sono tre miliardi di anni che lo ripeto!', time: '12:06', delay: 9000 },
-      { type: 'text', sender: 'sent', name: 'Terra', text: 'Non prendertela con me, io non li piloto. Fanno tutto da soli. Anzi, l\'altro giorno uno di loro ha fatto una foto al tramonto ed era oggettivamente bellissimo.', time: '12:07', delay: 10500 },
-      { type: 'text', sender: 'received', name: 'Giove', text: 'Ahahahahah. Che teneri i pianeti rocciosi. Siete così piccoli che vi metto tutti insieme dentro la mia macchia rossa e mi avanzano pure tre lune di spazio.', time: '12:08', delay: 12000 },
-      { type: 'text', sender: 'received', name: 'Saturno', text: 'Ehi, ciccione, parla per te. Guarda i miei anelli. Cristalli di ghiaccio puri, magnifici, splendenti. Nessuno ha degli accessori moda come i miei nel raggio di dieci unità astronomiche.', time: '12:09', delay: 13500 },
-      { type: 'text', sender: 'received', name: 'Urano', text: 'Raga... ma voi avete mai pensato che giriamo tutti in cerchio intorno a una palla di fuoco gigante senza un vero motivo?', time: '12:10', delay: 15000 },
-      { type: 'text', sender: 'received', name: 'Nettuno', text: 'Già... e fa un freddo cane qui fuori. Non sento più le dita. Ah, aspetta, io non ho le dita.', time: '12:11', delay: 16500 },
-      { type: 'text', sender: 'received', name: 'Mercurio', text: 'RAGAZZI IL SOLE SI È AVVICINATO DI UN MILLIMETRO O È UN\'IMPRESSIONE MIA? STO SCIOGLIENDO.', time: '12:12', delay: 18000 },
-      { type: 'text', sender: 'received', name: 'Il Sole [Admin]', text: 'Mercurio, meno 5 punti reputazione per il disturbo. Fate i bravi o spengo la fusione nucleare.', time: '12:13', delay: 19500 },
-      { type: 'text', sender: 'sent', name: 'Terra', text: '...qualcuno ha un\'aspirina? Sento che il riscaldamento globale sta facendo cose strane.', time: '12:14', delay: 21000 },
-      { type: 'text', sender: 'received', name: 'Marte', text: 'Ti sta bene, così impari a fare la preziosa con l\'acqua liquida. Vatti a comprare un climatizzatore.', time: '12:15', delay: 22500 },
-      { type: 'text', sender: 'received', name: 'Giove', text: 'A proposito di riscaldamento... Terra, i tuoi inquilini hanno mandato fuori un altro pezzo di ferro rumoroso stamattina. Mi è passato vicino a Ganimede e ha fatto un beep fastidiosissimo.', time: '12:16', delay: 24000 },
-      { type: 'text', sender: 'sent', name: 'Terra', text: 'Davvero? E dove va?', time: '12:17', delay: 25500 },
-      { type: 'text', sender: 'received', name: 'Giove', text: 'Boh, credo stia uscendo dal sistema solare. Saluta i tuoi figli, ormai sono grandi e vogliono esplorare il mondo.', time: '12:18', delay: 27000 },
-      { type: 'text', sender: 'received', name: 'Venere', text: 'Ma che tenerezza, credono di poter andare da qualche parte con quella tecnologia a combustione fossile. Sciocchi.', time: '12:19', delay: 28500 },
-      { type: 'text', sender: 'received', name: 'Urano', text: 'A proposito, ma Plutone che fine ha fatto? Perché non scrive mai in chat?', time: '12:20', delay: 30000 },
-      { type: 'text', sender: 'received', name: 'Saturno', text: 'È stato escluso dal gruppo perché non rispettava i requisiti minimi di massa. Adesso vaga nel Kuiper Belt Club a bere cocktail di metano ghiacciato con i suoi amichetti sfigati.', time: '12:21', delay: 31500 },
-      { type: 'text', sender: 'received', name: 'Nettuno', text: 'Ah, quindi non sono l\'unico a non essere considerato nei meetup di galassia. Ottimo a sapersi.', time: '12:22', delay: 33000 },
-      { type: 'text', sender: 'received', name: 'Mercurio', text: 'Raga, ho un blocco della rotazione. Sto girando malissimo, ho una nausea incredibile. Sole, posso fare una pausa? Anche solo un\'ora di buio totale?', time: '12:23', delay: 34500 },
-      { type: 'text', sender: 'received', name: 'Il Sole [Admin]', text: 'La pausa non esiste nel vuoto cosmico, Mercurio. Continua a girare.', time: '12:24', delay: 36000 },
-      { type: 'text', sender: 'received', name: 'Marte', text: 'Senti Sole, ma invece di fare il dittatore coi raggi UV, hai mica visto se le calotte polari mi sono cresciute quest\'anno? Ho fatto una dieta a base di anidride carbonica solida.', time: '12:25', delay: 37500 },
-      { type: 'text', sender: 'received', name: 'Il Sole [Admin]', text: 'Non guardo la tua polvere, Marte. Ho una nebulosa da gestire a tre anni luce da qui.', time: '12:26', delay: 39000 },
-      { type: 'text', sender: 'sent', name: 'Terra', text: 'Ragazzi, seriamente, c\'è un asteroide gigante che mi sta puntando dritto contro la crosta pacifica. Qualcuno mi aiuta a deviarlo?', time: '12:27', delay: 40500 },
-      { type: 'text', sender: 'received', name: 'Giove', text: 'Tranquilla Terra, ci penso io con la mia gravità. Puff... fatto. L\'ho deviato verso Venere.', time: '12:28', delay: 42000 },
-      { type: 'text', sender: 'received', name: 'Venere', text: 'COSA?! MA SEI SCEMO?! MI HA MANCATO UN CAPELLO! HO RISCHIATO DI ROVINARMI LA BRUNITURA!', time: '12:29', delay: 43500 },
-      { type: 'text', sender: 'received', name: 'Giove', text: 'Ops. Mi è scivolata la massa. Ahahaha.', time: '12:30', delay: 45000 },
-      { type: 'text', sender: 'received', name: 'Urano', text: 'Ragazzi, sto ruotando di sbieco da quattro miliardi di anni e nessuno che mi dica "Urano, stai comodo". Siete dei pessimi vicini di casa.', time: '12:31', delay: 46500 },
-      { type: 'text', sender: 'received', name: 'Nettuno', text: 'Ti capisco fratello. Qui fuori c\'è così tanto silenzio che sento i miei stessi anelli che si congelano.', time: '12:32', delay: 48000 },
-      { type: 'text', sender: 'sent', name: 'Terra', text: 'Va beh, vado a spegnere la luce. I miei umani stanno dormendo e c\'è una noia mortale. Domani mi sa che invento un\'altra era glaciale per movimentare la situazione.', time: '12:33', delay: 49500 },
-      { type: 'text', sender: 'received', name: 'Marte', text: 'Fammi sapere se becchi una buona offerta per i robottini usati. Ne ho la veranda piena. Notte sassi.', time: '12:34', delay: 51000 }
+      { type: 'system', text: 'The Sun added Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune.', time: '12:00', delay: 400 },
+      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: '@everyone SILENCE. Gravity is stable, orbits are circular, no one leaves their track. Good rotation.', time: '12:01', delay: 1400 },
+      { type: 'text', sender: 'received', name: 'Mercury', text: 'GUYS IT\'S HOT. IT\'S HOT IT\'S HOT IT\'S HOT. CAN SOMEONE MOVE ME FURTHER AWAY? PLEASE.', time: '12:02', delay: 2600 },
+      { type: 'text', sender: 'received', name: 'Venus', text: 'Stop crying, Mercury. Look at how gorgeous I look in Earth\'s skies tonight. Bright, elegant, flawless.<br>😛 <i>[Sailor Venus sticker]</i>', time: '12:03', delay: 3800 },
+      { type: 'text', sender: 'sent', name: 'Earth', text: 'Venus, your atmosphere is made of sulfuric acid and the pressure would crush a submarine. Stop acting like a diva.', time: '12:04', delay: 5000 },
+      { type: 'text', sender: 'received', name: 'Mars', text: 'Speaking of parasites... Earth, I got another wheeled robot. They keep digging holes in my desert looking for water. But there is no water! It\'s just dust! I\'ve been saying this for three billion years!', time: '12:05', delay: 6300 },
+      { type: 'image', sender: 'received', name: 'Mars', text: '📷 <i>Curiosity rover chilling in the Martian dust</i>', img: '1000076059.jpg', time: '12:05', delay: 7500 },
+      { type: 'text', sender: 'sent', name: 'Earth', text: 'Don\'t blame me, I don\'t drive them. They do it themselves. Besides, one of them took a sunset photo the other day and it was objectively gorgeous.', time: '12:06', delay: 8800 },
+      { type: 'text', sender: 'received', name: 'Jupiter', text: 'Ahahaha. Look at the cute little rocky planets. You\'re so small I could fit all of you inside my Great Red Spot and still have room for three moons.', time: '12:07', delay: 10100 },
+      { type: 'image', sender: 'received', name: 'Jupiter', text: '🌀 <i>The giant spinning storm in high definition</i>', img: '1000076063.gif', time: '12:07', delay: 11300 },
+      { type: 'text', sender: 'received', name: 'Saturn', text: 'Hey big guy, speak for yourself. Look at my rings. Pure, magnificent, shining ice crystals. Nobody has fashion accessories like mine within ten astronomical units.', time: '12:08', delay: 12600 },
+      { type: 'text', sender: 'received', name: 'Uranus', text: 'Guys... have you ever thought about how we\'re all just spinning in circles around a giant ball of fire for no real reason?', time: '12:09', delay: 13900 },
+      { type: 'text', sender: 'received', name: 'Neptune', text: 'Yeah... and it\'s freezing out here. I can\'t feel my fingers. Oh wait, I don\'t have fingers.', time: '12:10', delay: 15100 },
+      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'Mercury, minus 5 reputation points for the noise. Behave or I\'ll shut down nuclear fusion.<br>🚫 <i>[Black UNO reverse/prohibition card]</i>', time: '12:11', delay: 16500 },
+      { type: 'text', sender: 'sent', name: 'Earth', text: '...does anyone have an aspirin? I think global warming is doing weird things.', time: '12:12', delay: 17800 },
+      { type: 'text', sender: 'received', name: 'Mars', text: 'Serves you right for being so picky with liquid water. Go buy an AC unit.', time: '12:13', delay: 19100 },
+      { type: 'text', sender: 'received', name: 'Jupiter', text: 'Speaking of warming... Earth, your tenants sent another noisy piece of iron out this morning. It flew past Ganymede and made a super annoying beep.', time: '12:14', delay: 20400 },
+      { type: 'text', sender: 'sent', name: 'Earth', text: 'Really? Where is it going?', time: '12:15', delay: 21600 },
+      { type: 'text', sender: 'received', name: 'Jupiter', text: 'Dunno, looks like it\'s leaving the solar system. Say goodbye to your kids, they\'re all grown up and want to explore the universe.', time: '12:16', delay: 22900 },
+      { type: 'text', sender: 'received', name: 'Venus', text: 'So cute, thinking they can go anywhere with that fossil fuel tech. Fools.', time: '12:17', delay: 24200 },
+      { type: 'text', sender: 'received', name: 'Uranus', text: 'By the way, what happened to Pluto? Why does he never write in the chat?', time: '12:18', delay: 25500 },
+      { type: 'text', sender: 'received', name: 'Saturn', text: 'He got kicked out of the group because he didn\'t meet the minimum mass requirements. Now he hangs out at the Kuiper Belt Club drinking frozen methane cocktails with his weird friends.', time: '12:19', delay: 26800 },
+      { type: 'text', sender: 'received', name: 'Neptune', text: 'Ah, so I\'m not the only one ignored at galaxy meetups. Good to know.', time: '12:20', delay: 28000 },
+      { type: 'text', sender: 'received', name: 'Mercury', text: 'Guys, I have a rotation lock. I\'m spinning terribly, I feel so nauseous. Sun, can I take a break? Just one hour of total darkness?', time: '12:21', delay: 29300 },
+      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'Breaks don\'t exist in deep space, Mercury. Keep spinning.', time: '12:22', delay: 30600 },
+      { type: 'text', sender: 'received', name: 'Mars', text: 'Hey Sun, instead of playing UV dictator, did you check if my ice caps grew this year? I\'ve been on a strict solid carbon dioxide diet.', time: '12:23', delay: 31900 },
+      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'I don\'t look at your dust, Mars. I have a nebula to manage three light-years away.', time: '12:24', delay: 33200 },
+      { type: 'image', sender: 'received', name: 'The Sun [Admin]', text: '🌌 <i>Pillars of Creation flex</i>', img: '1000076061.jpg', time: '12:24', delay: 34400 },
+      { type: 'text', sender: 'sent', name: 'Earth', text: 'Guys seriously, there\'s a giant asteroid heading straight for the Pacific. Can someone help me deflect it?', time: '12:25', delay: 35700 },
+      { type: 'text', sender: 'received', name: 'Jupiter', text: 'Don\'t worry Earth, I got it with my gravity. Puff... done. I redirected it toward Venus.', time: '12:26', delay: 37000 },
+      { type: 'text', sender: 'received', name: 'Venus', text: 'WHAT?! ARE YOU INSANE?! IT MISSED ME BY AN INCH! I ALMOST RUINED MY FINISH!', time: '12:27', delay: 38300 },
+      { type: 'text', sender: 'received', name: 'Jupiter', text: 'Oops. My mass slipped. Ahahaha.', time: '12:28', delay: 39500 },
+      { type: 'text', sender: 'received', name: 'Uranus', text: 'Guys, I\'ve been rolling on my side for four billion years and nobody ever tells me "Uranus, get comfortable". You\'re terrible neighbors.', time: '12:29', delay: 40800 },
+      { type: 'text', sender: 'received', name: 'Neptune', text: 'I feel you bro. It\'s so quiet out here I can actually hear my own rings freezing.', time: '12:30', delay: 42100 },
+      { type: 'text', sender: 'sent', name: 'Earth', text: 'Well, I\'m turning off the lights. My humans are sleeping and it\'s dead boring. Tomorrow I might invent another ice age just to spice things up.', time: '12:31', delay: 43400 },
+      { type: 'text', sender: 'received', name: 'Mars', text: 'Let me know if you find a good deal on used rovers. My porch is full of them. Night rocks.', time: '12:32', delay: 44700 }
     ];
 
     const chatBox = document.getElementById('chatBox');
@@ -333,14 +341,19 @@
         msgDiv.innerHTML = `<i>${msg.text}</i>`;
       } else {
         msgDiv.classList.add('message-row', msg.sender);
-        let pngName = profileImages[msg.name] || 'pianeta.png';
+        let pngName = profileImages[msg.name] || 'planet.png';
+
+        let innerContent = `<div>${msg.text}</div>`;
+        if (msg.type === 'image') {
+          innerContent += `<img src="${msg.img}" alt="Chat Image" class="message-img" onerror="this.src='https://via.placeholder.com/220x140/111/F0E8D5?text=Image';">`;
+        }
 
         msgDiv.innerHTML = `
           <div class="msg-avatar">${pngName}</div>
           <div class="message-content">
             <div class="sender-name">${msg.name}</div>
             <div class="message-bubble">
-              <div>${msg.text}</div>
+              ${innerContent}
               <div class="timestamp">${msg.time}</div>
             </div>
           </div>
