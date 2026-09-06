@@ -61,6 +61,14 @@
       justify-content: center;
       font-weight: bold;
       border: 2px solid #111;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     /* Area Messaggi */
@@ -70,21 +78,17 @@
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
 
-    /* Bubble dei messaggi (Palette Taccuino) */
-    .message {
-      max-width: 80%;
-      padding: 10px 14px;
-      border-radius: 15px;
-      font-size: 15px;
-      line-height: 1.4;
-      position: relative;
+    .message-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      max-width: 85%;
       opacity: 0;
       transform: translateY(10px);
       animation: fadeIn 0.3s forwards ease-in-out;
-      border: 2px solid #111111;
     }
 
     @keyframes fadeIn {
@@ -94,23 +98,72 @@
       }
     }
 
+    .message-row.received {
+      align-self: flex-start;
+    }
+
+    .message-row.sent {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+
+    .msg-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: bold;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .msg-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .message-content {
+      display: flex;
+      flex-direction: column;
+    }
+
     .sender-name {
       font-size: 11px;
       font-weight: bold;
       color: #444;
       margin-bottom: 3px;
+      padding-left: 4px;
     }
 
-    .message.received {
-      align-self: flex-start;
+    .sent .sender-name {
+      text-align: right;
+      padding-right: 4px;
+    }
+
+    /* Bubble dei messaggi (Palette Taccuino) */
+    .message-bubble {
+      padding: 10px 14px;
+      border-radius: 15px;
+      font-size: 15px;
+      line-height: 1.4;
+      position: relative;
+      border: 2px solid #111111;
+    }
+
+    .received .message-bubble {
       background-color: #ffffff;
       color: #111;
       border-bottom-left-radius: 2px;
       box-shadow: 2px 2px 0px #111;
     }
 
-    .message.sent {
-      align-self: flex-end;
+    .sent .message-bubble {
       background-color: #111111;
       color: #ffffff;
       border-bottom-right-radius: 2px;
@@ -124,27 +177,6 @@
       text-align: right;
     }
     .sent .timestamp { color: #aaa; }
-
-    /* Player Audio */
-    .audio-player {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .play-btn {
-      background-color: #111;
-      color: #fff;
-      border: 1px solid #111;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .sent .play-btn { background-color: #fff; color: #111; }
 
     /* Banner Finale e Pulsanti Social */
     .final-banner {
@@ -233,8 +265,21 @@
   </div>
 
   <script>
+    // Mappa delle immagini profilo (puoi sostituire i link con le immagini che preferisci)
+    const avatars = {
+      'Il Sole [Admin]': 'https://api.iconify.design/fluent-emoji-flat:sun.svg',
+      'Mercurio': 'https://api.iconify.design/fluent-emoji-flat:ringed-planet.svg', // o pianeta Mercurio
+      'Venere': 'https://api.iconify.design/fluent-emoji-flat:globe-showing-americas.svg',
+      'Terra': 'https://api.iconify.design/fluent-emoji-flat:globe-with-meridians.svg',
+      'Marte': 'https://api.iconify.design/fluent-emoji-flat:red-circle.svg',
+      'Giove': 'https://api.iconify.design/fluent-emoji-flat:brown-circle.svg',
+      'Saturno': 'https://api.iconify.design/fluent-emoji-flat:ringed-planet.svg',
+      'Urano': 'https://api.iconify.design/fluent-emoji-flat:purple-circle.svg',
+      'Nettuno': 'https://api.iconify.design/fluent-emoji-flat:blue-circle.svg'
+    };
+
     const messagesData = [
-      { type: 'system', name: 'Sistema', text: 'Il Sole ha aggiunto Mercurio, Venere, Terra, Marte, Giove, Saturno, Urano, Nettuno.', time: '12:00', delay: 500 },
+      { type: 'system', text: 'Il Sole ha aggiunto Mercurio, Venere, Terra, Marte, Giove, Saturno, Urano, Nettuno.', time: '12:00', delay: 500 },
       { type: 'text', sender: 'received', name: 'Il Sole [Admin]', text: '@tutti SILENZIO. La gravità è stabile, le orbite sono circolari, nessuno deve uscire dal tracciato. Buona rotazione.', time: '12:01', delay: 1500 },
       { type: 'text', sender: 'received', name: 'Mercurio', text: 'RAGAZZI HO CALDO. HO CALDO HO CALDO HO CALDO. QUALCUNO MI SPOSTA PIÙ IN LÀ? VI PREGO.', time: '12:02', delay: 3000 },
       { type: 'text', sender: 'received', name: 'Venere', text: 'Smettila di piangere, Mercurio. Piuttosto, guardate quanto sono splendida stasera nei cieli della Terra. Lucente, elegante, perfetta.', time: '12:03', delay: 4500 },
@@ -253,7 +298,7 @@
       { type: 'text', sender: 'received', name: 'Giove', text: 'A proposito di riscaldamento... Terra, i tuoi inquilini hanno mandato fuori un altro pezzo di ferro rumoroso stamattina. Mi è passato vicino a Ganimede e ha fatto un beep fastidiosissimo.', time: '12:16', delay: 24000 },
       { type: 'text', sender: 'sent', name: 'Terra', text: 'Davvero? E dove va?', time: '12:17', delay: 25500 },
       { type: 'text', sender: 'received', name: 'Giove', text: 'Boh, credo stia uscendo dal sistema solare. Saluta i tuoi figli, ormai sono grandi e vogliono esplorare il mondo.', time: '12:18', delay: 27000 },
-      { type: 'text', sender: 'received', name: 'Venere', text: 'Ma che tenerezza, credono di poter andare da quella parte con quella tecnologia a combustione fossile. Sciocchi.', time: '12:19', delay: 28500 },
+      { type: 'text', sender: 'received', name: 'Venere', text: 'Ma che tenerezza, credono di poter andare da qualche parte con quella tecnologia a combustione fossile. Sciocchi.', time: '12:19', delay: 28500 },
       { type: 'text', sender: 'received', name: 'Urano', text: 'A proposito, ma Plutone che fine ha fatto? Perché non scrive mai in chat?', time: '12:20', delay: 30000 },
       { type: 'text', sender: 'received', name: 'Saturno', text: 'È stato escluso dal gruppo perché non rispettava i requisiti minimi di massa. Adesso vaga nel Kuiper Belt Club a bere cocktail di metano ghiacciato con i suoi amichetti sfigati.', time: '12:21', delay: 31500 },
       { type: 'text', sender: 'received', name: 'Nettuno', text: 'Ah, quindi non sono l\'unico a non essere considerato nei meetup di galassia. Ottimo a sapersi.', time: '12:22', delay: 33000 },
@@ -282,13 +327,23 @@
         msgDiv.style.fontSize = '12px';
         msgDiv.style.color = '#777';
         msgDiv.style.margin = '8px 0';
+        msgDiv.style.width = '100%';
         msgDiv.innerHTML = `<i>${msg.text}</i>`;
       } else {
-        msgDiv.classList.add('message', msg.sender);
+        msgDiv.classList.add('message-row', msg.sender);
+        
+        let avatarUrl = avatars[msg.name] || '';
+        let avatarContent = avatarUrl ? `<img src="${avatarUrl}" alt="${msg.name}">` : msg.name.charAt(0);
+
         msgDiv.innerHTML = `
-          <div class="sender-name">${msg.name}</div>
-          <div>${msg.text}</div>
-          <div class="timestamp">${msg.time}</div>
+          <div class="msg-avatar">${avatarContent}</div>
+          <div class="message-content">
+            <div class="sender-name">${msg.name}</div>
+            <div class="message-bubble">
+              <div>${msg.text}</div>
+              <div class="timestamp">${msg.time}</div>
+            </div>
+          </div>
         `;
       }
 
