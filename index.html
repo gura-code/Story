@@ -1,521 +1,321 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>COSMIC-S</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700;800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <title>Chat Gruppo - Sistema Solare</title>
+  <!-- Icone FontAwesome per tasti Play e Social -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background-color: #f5f5f7;
-      background-image: 
-        linear-gradient(#e1e1e6 1px, transparent 1px),
-        linear-gradient(90deg, #e1e1e6 1px, transparent 1px);
-      background-size: 20px 20px;
-      color: #111111;
-      font-family: 'Quicksand', sans-serif;
-      padding: 30px 10px;
-      display: flex;
-      justify-content: center;
-      position: relative;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
-    .site-wrapper {
-      max-width: 980px;
+    html, body {
       width: 100%;
-      background: #ffffff;
-      border: 3px solid #111111;
-      border-radius: 32px;
-      padding: 20px;
-      margin-bottom: 30px;
-      box-shadow: 6px 6px 0px #111111;
+      height: 100%;
+      background-color: #fdfbf7;
+      overflow-x: hidden;
+    }
+
+    .chat-container {
+      width: 100%;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .top-banner {
-      background: #111111;
-      border: 2px solid #111111;
-      border-radius: 20px;
-      padding: 12px 25px;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
+      background-color: #fdfbf7;
       position: relative;
     }
 
-    .top-banner h1 { 
-      font-size: 3.5rem; 
-      font-weight: 800; 
-      letter-spacing: 3px; 
-      color: #ffffff;
-      text-align: left;
-      line-height: 1;
-      text-shadow: 0 0 10px rgba(255,255,255,0.9), 0 0 20px rgba(255,255,255,0.6);
-    }
-
-    .grid-container {
-      display: grid;
-      grid-template-columns: minmax(180px, 240px) minmax(220px, 1fr) minmax(160px, 220px);
-      gap: 12px;
-      align-items: stretch;
-      padding-bottom: 20px;
-      width: 100%;
-    }
-
-    .col-left, .col-center, .col-right {
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      min-width: 0;
-    }
-
-    .paper-note-container {
-      width: 100%;
-      margin-bottom: 14px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .paper-note-img {
-      width: 100%;
-      height: auto;
-      display: block;
-      filter: drop-shadow(3px 3px 0px rgba(0,0,0,0.15));
-    }
-
-    .box {
-      background: #ffffff;
-      border: 2px solid #111111;
-      border-radius: 22px;
-      overflow: hidden;
-      box-shadow: 3px 3px 0px #111111;
-      margin-bottom: 14px;
-    }
-    .box-header {
-      background: #fdfbf7;
-      border-bottom: 2px solid #111111;
-      padding: 8px 14px;
-      font-weight: 700;
-      font-size: 0.8rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .box-body { padding: 14px; }
-
-    .box-dark {
-      background: #111111;
-      color: #ffffff;
-      border: 2px solid #111111;
-      border-radius: 22px;
-      overflow: hidden;
-      box-shadow: 3px 3px 0px #111111;
-      margin-bottom: 14px;
-    }
-    .box-dark .box-header {
-      background: #222222;
-      color: #ffffff;
-      border-bottom: 2px solid #444444;
-    }
-
-    .receipt-box {
-      background: #fdfbf7;
-      border: 2px solid #111111;
-      padding: 18px 14px;
-      box-shadow: 4px 4px 0px #111111;
-      margin-bottom: 14px;
-      transform: rotate(-2deg);
-    }
-    .receipt-title { text-align: center; font-weight: 800; font-size: 0.85rem; }
-    .receipt-dash { border: none; border-top: 2px dashed #111; margin: 10px 0; }
-    .receipt-menu-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
-    .receipt-menu-list a {
-      color: #111; text-decoration: none; font-weight: 700; font-size: 0.78rem; display: block; padding: 8px 10px; cursor: pointer;
-    }
-    .receipt-menu-list a.active, .receipt-menu-list a:hover { background: #111111; color: #ffffff; }
-    .receipt-barcode { text-align: center; font-size: 1.1rem; letter-spacing: 2px; margin-top: 8px; }
-
-    .calendar-graphic-dark { 
-      width: 36px; height: 36px; border: 2px solid #fff; border-radius: 6px; background: #222; margin: 0 auto 8px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 2px 2px 0px #fff;
-    }
-    .calendar-graphic-top-dark { background: #fff; height: 10px; width: 100%; }
-    .calendar-graphic-body-dark { flex: 1; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800; color: #fff; }
-
-    .mini-calendar-dark { width: 100%; font-size: 0.68rem; text-align: center; border-collapse: collapse; }
-    .mini-calendar-dark th, .mini-calendar-dark td { padding: 4px 2px; border: none; color: #ffffff; }
-    .mini-calendar-dark th { background: #333333; font-size: 0.6rem; font-weight: 800; border-radius: 4px; }
-    .mini-calendar-dark td.today-dark { background: #ffffff; color: #111111; font-weight: 800; border-radius: 4px; }
-
-    .pixel-clock-box-dark {
-      background: #111; border: 2px solid #111; border-radius: 16px; padding: 12px; text-align: center; box-shadow: 3px 3px 0px #111; margin-bottom: 14px;
-    }
-    .pixel-clock-time-dark {
-      font-family: 'Press Start 2P', monospace; font-size: 0.85rem; color: #fff; letter-spacing: 1px;
-    }
-
-    .nav-box-btn {
-      width: 100%; background: #fdfbf7; border: 2px solid #111; border-radius: 16px; padding: 10px; font-weight: 800; font-size: 0.75rem; cursor: pointer; box-shadow: 3px 3px 0px #111; text-align: center; margin-bottom: 14px; text-decoration: none; color: #111; display: block;
-    }
-    .nav-box-btn-dark {
-      width: 100%; background: #111111; color: #ffffff; border: 2px solid #111; border-radius: 16px; padding: 10px; font-weight: 800; font-size: 0.75rem; cursor: pointer; box-shadow: 3px 3px 0px #111; text-align: center; margin-bottom: 14px; text-decoration: none; display: block;
-    }
-
-    /* STILE CHAT DI GRUPPO INTEGRATA (COLORI TACCUINO / CREMA E BIANCO/NERO) */
-    .chat-group-box {
-      background: #fdfbf7;
-      border: 2px solid #111111;
-      border-radius: 22px;
-      overflow: hidden;
-      box-shadow: 3px 3px 0px #111111;
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 14px;
-    }
-
-    .chat-group-header {
+    /* Intestazione Chat (Stile Nero/Bianco) */
+    .chat-header {
       background-color: #111111;
-      color: #ffffff;
-      padding: 10px 14px;
+      color: white;
+      padding: 15px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
       border-bottom: 2px solid #111;
     }
 
-    .chat-group-messages {
-      padding: 12px;
-      max-height: 340px;
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      color: #111111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      border: 2px solid #111;
+    }
+
+    /* Area Messaggi */
+    .chat-messages {
+      flex: 1;
+      padding: 15px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      background: #fdfbf7;
+      gap: 12px;
     }
 
-    .message-item {
-      display: flex;
-      flex-direction: column;
-      max-width: 85%;
+    /* Bubble dei messaggi (Palette Taccuino) */
+    .message {
+      max-width: 80%;
+      padding: 10px 14px;
+      border-radius: 15px;
+      font-size: 15px;
+      line-height: 1.4;
+      position: relative;
       opacity: 0;
       transform: translateY(10px);
-      animation: fadeInMsg 0.3s forwards ease-in-out;
-    }
-
-    @keyframes fadeInMsg {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .message-item.incoming { align-self: flex-start; }
-    .message-item.outgoing { align-self: flex-end; align-items: flex-end; }
-
-    .sender-name {
-      font-size: 0.68rem;
-      font-weight: 800;
-      color: #555;
-      margin-bottom: 2px;
-      padding-left: 4px;
-    }
-
-    .message-bubble {
-      padding: 8px 12px;
-      border-radius: 14px;
-      font-size: 0.8rem;
-      line-height: 1.4;
+      animation: fadeIn 0.3s forwards ease-in-out;
       border: 2px solid #111111;
     }
 
-    .incoming .message-bubble {
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .sender-name {
+      font-size: 11px;
+      font-weight: bold;
+      color: #444;
+      margin-bottom: 3px;
+    }
+
+    .message.received {
+      align-self: flex-start;
       background-color: #ffffff;
       color: #111;
       border-bottom-left-radius: 2px;
       box-shadow: 2px 2px 0px #111;
     }
 
-    .outgoing .message-bubble {
+    .message.sent {
+      align-self: flex-end;
       background-color: #111111;
       color: #ffffff;
       border-bottom-right-radius: 2px;
       box-shadow: 2px 2px 0px #444;
     }
 
-    .timestamp-chat {
-      font-size: 9px;
+    .timestamp {
+      font-size: 10px;
       color: #777;
-      margin-top: 3px;
-      padding: 0 2px;
+      margin-top: 4px;
+      text-align: right;
     }
+    .sent .timestamp { color: #aaa; }
 
-    .chat-audio-wrap {
+    /* Player Audio */
+    .audio-player {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
-    .chat-play-btn {
+    .play-btn {
       background-color: #111;
       color: #fff;
       border: 1px solid #111;
-      width: 26px;
-      height: 26px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.7rem;
     }
-    .outgoing .chat-play-btn { background: #fff; color: #111; }
+    .sent .play-btn { background-color: #fff; color: #111; }
 
-    .chat-final-banner {
+    /* Banner Finale e Pulsanti Social */
+    .final-banner {
       display: none;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
-      padding: 12px;
-      background: #ffffff;
-      border-top: 2px solid #111;
+      gap: 15px;
+      margin-top: 20px;
+      padding-bottom: 30px;
+      animation: fadeIn 0.5s forwards;
     }
 
-    .site-footer { border-top: 2px solid #111; padding-top: 12px; text-align: center; font-weight: 700; font-size: 0.72rem; color: #555; }
-    .pure-card-img { max-width: 100%; display: block; filter: drop-shadow(4px 4px 0px #111); }
+    .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-btn {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #111;
+      text-decoration: none;
+      font-size: 18px;
+      box-shadow: 2px 2px 0px #111;
+    }
+
+    .card-banner {
+      background: white;
+      border: 2px solid #111;
+      border-radius: 12px;
+      padding: 15px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 3px 3px 0px #111;
+    }
+
+    .card-banner a {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #111;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
 
-  <div class="site-wrapper">
-
-    <!-- Top Banner -->
-    <header class="top-banner">
-      <h1>COSMIC-S</h1>
-    </header>
-
-    <div class="grid-container">
-
-      <!-- COLONNA SINISTRA -->
-      <aside class="col-left">
-        <div class="receipt-box">
-          <div class="receipt-title">.☘︎ ݁˖ MENU ☰ ❞</div>
-          <hr class="receipt-dash">
-          <ul class="receipt-menu-list">
-            <li><a class="active">˙ᵕ˙ HOME</a></li>
-            <li><a href="#">BLOG ✐ᝰ</a></li>
-            <li><a href="#">GALLERY ⋆˚꩜｡</a></li>
-            <li><a href="#">STORIES</a></li>
-          </ul>
-          <hr class="receipt-dash">
-          <div class="receipt-barcode">𝄃𝄃𝄂𝄂𝄀𝄁𝄃𝄂𝄂𝄃</div>
+  <div class="chat-container">
+    <!-- Intestazione Chat di Gruppo -->
+    <div class="chat-header">
+      <div class="user-info">
+        <i class="fa-solid fa-chevron-left"></i>
+        <div class="avatar"><i class="fa-solid fa-globe"></i></div>
+        <div>
+          <span style="font-weight: bold; display: block; font-size: 14px;">Solar System Group</span>
+          <span style="font-size: 11px; color: #aaa;">Mercury, Venus, Earth, Mars, Saturn...</span>
         </div>
-
-        <div class="box-dark">
-          <div class="box-header"><span id="cal-month-title">calendar</span></div>
-          <div class="box-body">
-            <div class="calendar-graphic-dark">
-              <div class="calendar-graphic-top-dark"></div>
-              <div class="calendar-graphic-body-dark" id="cal-day-number">--</div>
-            </div>
-            <table class="mini-calendar-dark">
-              <thead>
-                <tr><th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th></tr>
-              </thead>
-              <tbody id="calendar-body"></tbody>
-            </table>
-          </div>
-        </div>
-      </aside>
-
-      <!-- COLONNA CENTRALE (CHAT DI GRUPPO TRA PIANETI) -->
-      <main class="col-center">
-        <div style="margin-bottom: 14px;">
-          <img src="./about-me-card.png" alt="about_me.id" class="pure-card-img" onerror="this.style.height='140px'; this.style.background='#fdfbf7';">
-        </div>
-
-        <!-- Box della Chat di Gruppo -->
-        <div class="chat-group-box">
-          <div class="chat-group-header">
-            <span style="font-weight: 800; font-size: 0.85rem;"><i class="fa-solid fa-globe"></i> Solar System Group</span>
-            <span style="font-size: 0.7rem; background: #333; padding: 2px 6px; border-radius: 8px;">9 members</span>
-          </div>
-
-          <!-- Messaggi di Gruppo Dinamici -->
-          <div class="chat-group-messages" id="chatGroupMsgs"></div>
-
-          <!-- Banner finale di gruppo -->
-          <div class="chat-final-banner" id="chatFinalBanner">
-            <p style="font-size: 0.75rem; font-weight: 700;"><i>"Esplora l'universo di COSMIC-S"</i></p>
-            <a href="#" style="font-size: 0.75rem; font-weight: 800; color: #111; text-decoration: underline;">Torna alla home del taccuino &rarr;</a>
-          </div>
-        </div>
-      </main>
-
-      <!-- COLONNA DESTRA -->
-      <aside class="col-right">
-        <div class="pixel-clock-box-dark">
-          <div class="pixel-clock-time-dark" id="pixel-clock">00:00:00</div>
-        </div>
-
-        <a href="https://gura-code.atabook.org" target="_blank" class="nav-box-btn">
-          ✎ SIGN GUESTBOOK -&gt;
-        </a>
-
-        <div class="box-dark">
-          <div class="box-header"><span>live_chat</span></div>
-          <div class="box-body" style="padding: 6px; background: #111;">
-            <iframe src="https://www5.cbox.ws/box/?boxid=965960&boxtag=EoeC0G" width="100%" height="200" frameborder="0"></iframe>
-          </div>
-        </div>
-      </aside>
-
+      </div>
+      <div>
+        <i class="fa-solid fa-magnifying-glass" style="margin-right: 15px;"></i>
+        <i class="fa-solid fa-bars"></i>
+      </div>
     </div>
 
-    <footer class="site-footer">
-      COSMIC-S // HOSTED ON NEOCITIES // ALL RIGHTS RESERVED
-    </footer>
+    <!-- Contenitore Messaggi -->
+    <div class="chat-messages" id="chatBox"></div>
 
+    <!-- Banner Finale -->
+    <div class="final-banner" id="finalBanner">
+      <div class="social-icons">
+        <a href="#" class="social-btn"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="#" class="social-btn"><i class="fa-solid fa-comment"></i></a>
+        <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+      </div>
+      <div class="card-banner">
+        <p><i>"Esplora l'universo e scopri la storia dei pianeti..."</i></p>
+        <a href="#">Torna al taccuino COSMIC-S &rarr;</a>
+      </div>
+    </div>
   </div>
 
   <script>
-    // Conversazione di gruppo tra i pianeti del Sistema Solare nello stile del sito
-    const planetChatData = [
-      { sender: 'Mercury', type: 'text', text: 'Ragazzi, avete visto chi è passato sul sito oggi?', time: '14:02', delay: 1000 },
-      { sender: 'Venus', type: 'text', text: 'Sì! Ho visto dei nuovi timbri pazzeschi nella gallery ✨', time: '14:03', delay: 2600 },
-      { sender: 'Earth (You)', type: 'text', text: 'Grazie! Sto sistemando la nuova pagina del taccuino.', time: '14:05', delay: 4200 },
-      { sender: 'Mars', type: 'text', text: 'Meno male che ci sono visite reali e non solo i soliti bot di Neocities 😤', time: '14:06', delay: 5800 },
+    const messagesData = [
+      { type: 'text', sender: 'received', name: 'Mercury', text: 'Ragazzi, avete controllato gli ultimi aggiornamenti sul taccuino?', time: '14:02', delay: 1000 },
+      { type: 'text', sender: 'received', name: 'Venus', text: 'Sì! La nuova veste grafica in bianco e nero è bellissima ✨', time: '14:03', delay: 2500 },
+      { type: 'text', sender: 'sent', name: 'Earth (Tu)', text: 'Esatto, ho sistemato i colori per abbinarli allo stile crema!', time: '14:05', delay: 4000 },
+      { type: 'text', sender: 'received', name: 'Mars', text: 'Ottimo lavoro, era ora di dare una scossa al sistema.', time: '14:06', delay: 5500 },
       { 
-        sender: 'Saturn', 
         type: 'audio', 
+        sender: 'received', 
+        name: 'Saturn', 
         audioUrl: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 
         time: '14:08', 
-        delay: 7500 
+        delay: 7000 
       },
-      { sender: 'Jupiter', type: 'text', text: 'Ascoltate questo vocale che ha mandato Saturno!', time: '14:09', delay: 9500 },
-      { sender: 'Neptune', type: 'text', text: 'Troppo bello... continuate così con COSMIC-S!', time: '14:10', delay: 11200 }
+      { type: 'text', sender: 'received', name: 'Jupiter', text: 'Ascoltate questo vocale che ha mandato Saturno con gli anelli!', time: '14:09', delay: 9000 },
+      { type: 'text', sender: 'sent', name: 'Earth (Tu)', text: 'Ricevuto! Perfetto così.', time: '14:10', delay: 10500 }
     ];
 
-    const chatGroupMsgs = document.getElementById('chatGroupMsgs');
-    const chatFinalBanner = document.getElementById('chatFinalBanner');
+    const chatBox = document.getElementById('chatBox');
+    const finalBanner = document.getElementById('finalBanner');
 
-    function addGroupMessage(msg) {
-      const isOutgoing = msg.sender.includes('Earth');
-      const itemDiv = document.createElement('div');
-      itemDiv.classList.add('message-item', isOutgoing ? 'outgoing' : 'incoming');
+    function addMessage(msg) {
+      const msgDiv = document.createElement('div');
+      msgDiv.classList.add('message', msg.sender);
 
-      let bubbleContent = '';
+      let contentHTML = `<div class="sender-name">${msg.name}</div>`;
+
       if (msg.type === 'text') {
-        bubbleContent = `<div>${msg.text}</div>`;
+        contentHTML += `
+          <div>${msg.text}</div>
+          <div class="timestamp">${msg.time}</div>
+        `;
       } else if (msg.type === 'audio') {
-        bubbleContent = `
-          <div class="chat-audio-wrap">
-            <button class="chat-play-btn" onclick="playGroupAudio('${msg.audioUrl}', this)">
+        contentHTML += `
+          <div class="audio-player">
+            <button class="play-btn" onclick="playAudio('${msg.audioUrl}', this)">
               <i class="fa-solid fa-play"></i>
             </button>
             <span>Messaggio Vocale</span>
           </div>
+          <div class="timestamp">${msg.time}</div>
         `;
       }
 
-      itemDiv.innerHTML = `
-        <div class="sender-name">${msg.sender}</div>
-        <div class="message-bubble">${bubbleContent}</div>
-        <div class="timestamp-chat">${msg.time}</div>
-      `;
-
-      chatGroupMsgs.appendChild(itemDiv);
-      chatGroupMsgs.scrollTop = chatGroupMsgs.scrollHeight;
+      msgDiv.innerHTML = contentHTML;
+      chatBox.appendChild(msgDiv);
+      window.scrollTo(0, document.body.scrollHeight);
     }
 
-    let activeGroupAudio = null;
-    let activeGroupBtn = null;
+    let currentAudio = null;
+    let currentBtn = null;
 
-    function playGroupAudio(url, btn) {
-      if (activeGroupAudio) {
-        activeGroupAudio.pause();
-        if (activeGroupBtn) activeGroupBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+    function playAudio(url, btn) {
+      if (currentAudio) {
+        currentAudio.pause();
+        if (currentBtn) currentBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
       }
-      if (activeGroupBtn === btn && !activeGroupAudio.paused) return;
 
-      activeGroupAudio = new Audio(url);
-      activeGroupBtn = btn;
+      if (currentBtn === btn && !currentAudio.paused) {
+        return;
+      }
+
+      currentAudio = new Audio(url);
+      currentBtn = btn;
       btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-      activeGroupAudio.play();
+      currentAudio.play();
 
-      activeGroupAudio.onended = () => {
+      currentAudio.onended = () => {
         btn.innerHTML = '<i class="fa-solid fa-play"></i>';
       };
     }
 
-    planetChatData.forEach((msg, index) => {
+    messagesData.forEach((msg, index) => {
       setTimeout(() => {
-        addGroupMessage(msg);
-        if (index === planetChatData.length - 1) {
+        addMessage(msg);
+        
+        if (index === messagesData.length - 1) {
           setTimeout(() => {
-            chatFinalBanner.style.display = 'flex';
-            chatGroupMsgs.scrollTop = chatGroupMsgs.scrollHeight;
+            finalBanner.style.display = 'flex';
+            window.scrollTo(0, document.body.scrollHeight);
           }, 1500);
         }
       }, msg.delay);
     });
-
-    // Calendario e Orologio
-    function generateCalendar() {
-      const today = new Date();
-      const currentDay = today.getDate();
-      const currentMonth = today.getMonth();
-      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-      document.getElementById('cal-month-title').innerText = monthNames[currentMonth].toLowerCase();
-      document.getElementById('cal-day-number').innerText = currentDay;
-
-      const firstDayOfMonth = new Date(today.getFullYear(), currentMonth, 1).getDay();
-      const daysInMonth = new Date(today.getFullYear(), currentMonth + 1, 0).getDate();
-      const tbody = document.getElementById('calendar-body');
-      tbody.innerHTML = '';
-
-      let date = 1;
-      for (let i = 0; i < 6; i++) {
-        let row = document.createElement('tr');
-        let hasDate = false;
-
-        for (let j = 0; j < 7; j++) {
-          let cell = document.createElement('td');
-          if (i === 0 && j < firstDayOfMonth) {
-            cell.innerText = '';
-          } else if (date > daysInMonth) {
-            cell.innerText = '';
-          } else {
-            cell.innerText = date;
-            if (date === currentDay) { cell.classList.add('today-dark'); }
-            date++;
-            hasDate = true;
-          }
-          row.appendChild(cell);
-        }
-        if (hasDate || i === 0) { tbody.appendChild(row); }
-      }
-    }
-
-    function updatePixelClock() {
-      const now = new Date();
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      const seconds = String(now.getSeconds()).padStart(2, '0');
-      document.getElementById('pixel-clock').innerText = `${hours}:${minutes}:${seconds}`;
-    }
-
-    generateCalendar();
-    setInterval(updatePixelClock, 1000);
-    updatePixelClock();
   </script>
 </body>
 </html>
