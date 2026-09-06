@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Solar Chat</title>
-  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
@@ -235,12 +234,11 @@
 <body>
 
   <div class="chat-container">
-    <!-- Chat Header -->
     <div class="chat-header">
       <div class="user-info">
         <i class="fa-solid fa-chevron-left"></i>
         <div class="avatar">
-          <img src="./gruppo-pianeti.png" alt="Group" onerror="this.style.display='none'; this.parentNode.innerText='SUN';">
+          <img src="https://raw.githubusercontent.com/gura-code/Story/refs/heads/main/%E2%80%8Bgruppo-pianeti.png" alt="Group" onerror="this.style.display='none'; this.parentNode.innerText='SUN';">
         </div>
         <div>
           <span style="font-weight: bold; display: block; font-size: 14px;">Solar Chat</span>
@@ -255,7 +253,6 @@
       </div>
     </div>
 
-    <!-- Messages Container -->
     <div class="chat-messages" id="chatBox"></div>
   </div>
 
@@ -297,116 +294,5 @@
       { type: 'text', sender: 'received', name: 'Venus', text: 'So cute, thinking they can go anywhere with that fossil fuel tech. Fools.' },
       { type: 'text', sender: 'received', name: 'Uranus', text: 'By the way, what happened to Pluto? Why does he never write in the chat?' },
       { type: 'text', sender: 'received', name: 'Saturn', text: 'He got kicked out of the group because he didn\'t meet the minimum mass requirements. Now he hangs out at the Kuiper Belt Club drinking frozen methane cocktails with his weird friends.' },
-      { type: 'text', sender: 'received', name: 'Neptune', text: 'Ah, so I\'m not the only one ignored at galaxy meetups. Good to know.' },
-      { type: 'text', sender: 'received', name: 'Mercury', text: 'Guys, I have a rotation lock. I\'m spinning terribly, I feel so nauseous. Sun, can I take a break? Just one hour of total darkness?' },
-      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'Breaks don\'t exist in deep space, Mercury. Keep spinning.' },
-      { type: 'text', sender: 'received', name: 'Mars', text: 'Hey Sun, instead of playing UV dictator, did you check if my ice caps grew this year? I\'ve been on a strict solid carbon dioxide diet.' },
-      { type: 'text', sender: 'received', name: 'The Sun [Admin]', text: 'I don\'t look at your dust, Mars. I have a nebula to manage three light-years away.' },
-      { type: 'image', sender: 'received', name: 'The Sun [Admin]', text: '<i>Pillars of Creation flex</i>', img: './pilastri-creazione.png' },
-      { type: 'text', sender: 'sent', name: 'Earth', text: 'Guys seriously, there\'s a giant asteroid heading straight for the Pacific. Can someone help me deflect it?' },
-      { type: 'text', sender: 'received', name: 'Jupiter', text: 'Don\'t worry Earth, I got it with my gravity. Puff... done. I redirected it toward Venus.' },
-      { type: 'text', sender: 'received', name: 'Venus', text: 'WHAT?! ARE YOU INSANE?! IT MISSED ME BY AN INCH! I ALMOST RUINED MY FINISH!' },
-      { type: 'text', sender: 'received', name: 'Jupiter', text: 'Oops. My mass slipped. Ahahaha.' },
-      { type: 'text', sender: 'received', name: 'Uranus', text: 'Guys, I\'ve been rolling on my side for four billion years and nobody ever tells me "Uranus, get comfortable". You\'re terrible neighbors.' },
-      { type: 'text', sender: 'received', name: 'Neptune', text: 'I feel you bro. It\'s so quiet out here I can actually hear my own rings freezing.' },
-      { type: 'text', sender: 'sent', name: 'Earth', text: 'Well, I\'m turning off the lights. My humans are sleeping and it\'s dead boring. Tomorrow I might invent another ice age just to spice things up.' },
-      { type: 'text', sender: 'received', name: 'Mars', text: 'Let me know if you find a good deal on used rovers. My porch is full of them. Night rocks.' },
-      { type: 'image', sender: 'received', name: 'The Sun [Admin]', text: '<i>Galassie lontane fuori dal sistema solare</i>', img: './galassie-lontane.png' }
-    ];
+      { type: '
 
-    const chatBox = document.getElementById('chatBox');
-    const menuToggle = document.getElementById('menuToggle');
-    const dropdownMenu = document.getElementById('dropdownMenu');
-    const stopAnimationBtn = document.getElementById('stopAnimationBtn');
-
-    let animationTimeouts = [];
-
-    menuToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      dropdownMenu.classList.toggle('active');
-    });
-
-    document.addEventListener('click', () => {
-      dropdownMenu.classList.remove('active');
-    });
-
-    function createMessageElement(msg) {
-      const msgDiv = document.createElement('div');
-      
-      if (msg.type === 'system') {
-        msgDiv.style.textAlign = 'center';
-        msgDiv.style.fontSize = '12px';
-        msgDiv.style.color = '#F0E8D5';
-        msgDiv.style.opacity = '0.85';
-        msgDiv.style.margin = '8px 0';
-        msgDiv.style.width = '100%';
-        msgDiv.style.textShadow = '1px 1px 2px #000';
-        msgDiv.innerHTML = `<i>${msg.text}</i>`;
-      } else {
-        msgDiv.classList.add('message-row', msg.sender);
-        let imgFileName = profileImages[msg.name] || './planet.png';
-
-        let innerContent = `<div>${msg.text}</div>`;
-        if (msg.type === 'image') {
-          innerContent += `<img src="${msg.img}" alt="Chat Image" class="message-img" onerror="this.src='https://via.placeholder.com/220x140/111/F0E8D5?text=Image';">`;
-        }
-
-        msgDiv.innerHTML = `
-          <div class="msg-avatar">
-            <img src="${imgFileName}" alt="${msg.name}" onerror="this.style.display='none'; this.parentNode.innerText='${msg.name.substring(0,3).toUpperCase()}';">
-          </div>
-          <div class="message-content">
-            <div class="sender-name">${msg.name}</div>
-            <div class="message-bubble">
-              ${innerContent}
-            </div>
-          </div>
-        `;
-      }
-      return msgDiv;
-    }
-
-    function startProgressiveLoading() {
-      chatBox.innerHTML = '';
-      animationTimeouts.forEach(t => clearTimeout(t));
-      animationTimeouts = [];
-
-      messagesData.forEach((msg, index) => {
-        let msgDiv = createMessageElement(msg);
-        chatBox.appendChild(msgDiv);
-
-        let t = setTimeout(() => {
-          let isAtBottom = (chatBox.scrollHeight - chatBox.scrollTop - chatBox.clientHeight) < 180;
-          
-          msgDiv.classList.add('visible');
-
-          if (isAtBottom) {
-            chatBox.scrollTo({
-              top: chatBox.scrollHeight,
-              behavior: 'smooth'
-            });
-          }
-        }, index * 1200);
-        
-        animationTimeouts.push(t);
-      });
-    }
-
-    stopAnimationBtn.addEventListener('click', () => {
-      animationTimeouts.forEach(t => clearTimeout(t));
-      animationTimeouts = [];
-      chatBox.innerHTML = '';
-
-      messagesData.forEach((msg) => {
-        let msgDiv = createMessageElement(msg);
-        msgDiv.classList.add('visible');
-        chatBox.appendChild(msgDiv);
-      });
-
-      chatBox.scrollTop = chatBox.scrollHeight;
-    });
-
-    startProgressiveLoading();
-  </script>
-</body>
-</html>
