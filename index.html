@@ -89,8 +89,38 @@
       padding: 5px;
     }
 
+    /* Stile per il menu a tendina dei crediti */
     .dropdown-menu {
       display: none;
+      position: absolute;
+      right: 0;
+      top: 40px;
+      background-color: #111111;
+      border: 2px solid #F0E8D5;
+      border-radius: 10px;
+      width: 260px;
+      padding: 15px;
+      color: #F0E8D5;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+      z-index: 100;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .dropdown-menu h4 {
+      margin-bottom: 8px;
+      border-bottom: 1px solid #F0E8D5;
+      padding-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .dropdown-menu p {
+      margin-bottom: 8px;
+    }
+
+    .dropdown-menu ul {
+      padding-left: 15px;
+      margin-bottom: 8px;
     }
 
     /* Messages Area con ampio spazio in fondo */
@@ -203,7 +233,7 @@
       transform: scale(1.02);
     }
 
-    /* Stile per lightbox stile WhatsApp */
+    /* Lightbox stile WhatsApp */
     #lightbox {
       position: fixed;
       top: 0;
@@ -244,7 +274,12 @@
       </div>
       <div class="menu-container">
         <button class="menu-btn" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
-        <div class="dropdown-menu" id="dropdownMenu"></div>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <h4>Informazioni & Crediti</h4>
+          <p><b>Solar Chat:</b> Ideato e sviluppato da te sul tuo sito WordPress.</p>
+          <p><b>Immagini:</b> Tratte dagli archivi pubblici di NASA, ESA, CSA e Wikimedia Commons.</p>
+          <p style="margin-bottom: 0; opacity: 0.8; font-size: 11px;">Tutti i diritti dei corpi celesti appartengono all'Universo.</p>
+        </div>
       </div>
     </div>
 
@@ -314,6 +349,19 @@
     const chatBox = document.getElementById('chatBox');
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
+    const menuToggle = document.getElementById('menuToggle');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    // Gestione apertura/chiusura menu a tendina
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Chiude il menu se si clicca fuori
+    document.addEventListener('click', () => {
+      dropdownMenu.style.display = 'none';
+    });
 
     function renderAllMessages() {
       chatBox.innerHTML = '';
